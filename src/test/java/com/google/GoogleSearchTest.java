@@ -1,5 +1,6 @@
 package com.google;
 
+import com.google.testconfigs.BaseTest;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -12,7 +13,7 @@ import static com.google.core.DSL.$;
 import static com.google.core.DSL.open;
 
 
-public class GoogleSearchTest {
+public class GoogleSearchTest extends BaseTest {
 
 
     @Test
