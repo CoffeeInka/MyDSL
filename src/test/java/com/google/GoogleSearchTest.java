@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
@@ -30,6 +31,7 @@ public class GoogleSearchTest extends BaseTest {
         assertResultsAmount(10);
         List<WebElement> results = getDriver().findElements(byResults);
         assertThat(textToBePresentInElement(results.get(0), "Selenium automates browsers"));
+        assertThat(results, nthElementText(0, "Selenium automates browsers"));
     }
 
     public static By byResults = By.cssSelector(".srg>.g");
@@ -57,6 +59,10 @@ public class GoogleSearchTest extends BaseTest {
 
     public static <V> V assertThat(ExpectedCondition<V> condition) {
         return assertThat(condition, Configuration.timeout, Configuration.pollingInterval);
+    }
+
+    public static <V> V assertThat(By locator, Condition condition){
+        return // kinda waitUntil;
     }
 
 //        open("http://www.google.com");
