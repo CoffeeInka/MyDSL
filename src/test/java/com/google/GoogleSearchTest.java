@@ -1,16 +1,22 @@
 package com.google;
 
+import com.google.core.Configuration;
 import com.google.testconfigs.BaseTest;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 
 
-import java.security.Key;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import static com.google.core.DSL.$;
-import static com.google.core.DSL.open;
+import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
+import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
 
 
 public class GoogleSearchTest extends BaseTest {
@@ -21,9 +27,14 @@ public class GoogleSearchTest extends BaseTest {
 
         open("http://www.google.com");
         search("Selenium automates browsers");
+        assertResultsAmount(10);
+        List<WebElement> results = getDriver().findElements(byResults);
+        assertThat(textToBePresentInElement(results.get(0), "Selenium automates browsers"));
     }
 
-    public void search(String query){
+    public static By byResults = By.cssSelector(".srg>.g");
+
+    public static void search(String query) {
         setValue($(By.name("q")), query + Keys.ENTER);
     }
 
@@ -33,11 +44,26 @@ public class GoogleSearchTest extends BaseTest {
         return element;
     }
 
+    public void assertResultsAmount(int resultsAmount) {
+        assertThat(numberOfElementsToBe(byResults, 10));
+    }
+
+    public static <V> V assertThat(ExpectedCondition<V> condition, long timeout, long polling) {
+        return new FluentWait<>(getDriver())
+                .withTimeout(timeout, TimeUnit.SECONDS)
+                .pollingEvery(polling, TimeUnit.MILLISECONDS)
+                .ignoring(WebDriverException.class, IndexOutOfBoundsException.class).until(condition);
+    }
+
+    public static <V> V assertThat(ExpectedCondition<V> condition) {
+        return assertThat(condition, Configuration.timeout, Configuration.pollingInterval);
+    }
+
 //        open("http://www.google.com");
 //
 //        search("Selenium automates browsers");
 //        assertResultsAmount(10);
-//        results.first().shouldHave(text("Selenium automates browsers"));
+//        byResults.first().shouldHave(text("Selenium automates browsers"));
 //
 //        followLink(0);
 //        $("#mainContent>h2").shouldBe(visible);
@@ -49,12 +75,12 @@ public class GoogleSearchTest extends BaseTest {
 //    }
 //
 //    public void followLink(int index) {
-//        results.get(index).find(".r>a").click();
+//        byResults.get(index).find(".r>a").click();
 //    }
 //
-//    public ElementsCollection results = $$(".srg>.g");
+//    public ElementsCollection byResults = $$(".srg>.g");
 //
 //    public void assertResultsAmount(int resultsAmount) {
-//        results.shouldHave(size(resultsAmount));
-    }
+//        byResults.shouldHave(size(resultsAmount));
+}
 
