@@ -45,7 +45,7 @@ public class GoogleSearchTest extends BaseTest {
     }
 
     public void assertResultsAmount(int resultsAmount) {
-        assertThat(numberOfElementsToBe(byResults, 10));
+        assertThat(numberOfElementsToBe(byResults, resultsAmount));
     }
 
     public static <V> V assertThat(ExpectedCondition<V> condition, long timeout, long polling) {
