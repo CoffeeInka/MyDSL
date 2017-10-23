@@ -8,14 +8,15 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 
+import static java.lang.Thread.sleep;
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
 
@@ -31,7 +32,7 @@ public class GoogleSearchTest extends BaseTest {
         assertResultsAmount(10);
         List<WebElement> results = getDriver().findElements(byResults);
         assertThat(textToBePresentInElement(results.get(0), "Selenium automates browsers"));
-        assertThat(results, nthElementText(0, "Selenium automates browsers"));
+        assertThat(results, MyExpectedConditions.nthElementText(0, "Selenium automates browsers"));
     }
 
     public static By byResults = By.cssSelector(".srg>.g");
@@ -61,8 +62,9 @@ public class GoogleSearchTest extends BaseTest {
         return assertThat(condition, Configuration.timeout, Configuration.pollingInterval);
     }
 
-    public static <V> V assertThat(By locator, Condition condition){
-        return // kinda waitUntil;
+    public static <V> V assertThat(By locator, Condition condition) {
+        return new 
+
     }
 
 //        open("http://www.google.com");
