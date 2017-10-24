@@ -8,9 +8,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.google.pages.Google.byResults;
 import static core.Configuration.timeout;
-import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class DSL {
@@ -37,10 +35,6 @@ public class DSL {
         element.clear();
         element.sendKeys(text);
         return element;
-    }
-
-    public void assertResultsAmount(int resultsAmount) {
-        assertThat(numberOfElementsToBe(byResults, resultsAmount));
     }
 
     public static <V> V assertThat(ExpectedCondition<V> condition, long timeout, long polling) {

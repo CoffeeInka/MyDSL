@@ -3,9 +3,8 @@ package com.google.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
-import static core.DSL.$;
-import static core.DSL.getDriver;
-import static core.DSL.setValue;
+import static core.DSL.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
 
 public class Google {
 
@@ -17,5 +16,9 @@ public class Google {
 
     public static void followLink(int index) {
         getDriver().findElements(byResults).get(index).findElement(By.cssSelector(".r>a")).click();
+    }
+
+    public void assertResultsAmount(int resultsAmount) {
+        assertThat(numberOfElementsToBe(byResults, resultsAmount));
     }
 }

@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 
 import static com.google.pages.Google.*;
 import static conditions.MyExpectedConditions.nthElementText;
+import static conditions.MyExpectedConditions.sizeOf;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
 
@@ -17,11 +18,11 @@ public class GoogleSearchTest extends BaseTest {
 
         open("http://www.google.com");
         search("Selenium automates browsers");
-        assertResultsAmount(10);
+        assertThat(byResults, sizeOf(10));
         assertThat(byResults, nthElementText(0, "Selenium automates browsers"));
 
         followLink(0);
-        assertThat(By.cssSelector("#mainContent>h2"),nthElementText(0, "What is Selenium?"));
+        assertThat(By.cssSelector("#mainContent>h2"), nthElementText(0, "What is Selenium?"));
         assertThat(urlToBe("http://www.seleniumhq.org/"));
     }
 
