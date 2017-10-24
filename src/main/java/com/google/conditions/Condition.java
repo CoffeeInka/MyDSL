@@ -4,7 +4,8 @@ package com.google.conditions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public abstract class Condition {
+public abstract class <V> V Condition {
 
-    public abstract WebElement apply(By locator);
+    public abstract V apply(By locator);
+    //задать на уровне класса дженерик тип generic types for classes
 }
