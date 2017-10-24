@@ -1,4 +1,4 @@
-package com.google.conditions;
+package conditions;
 
 
 import org.openqa.selenium.By;
@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static com.google.core.DSL.getDriver;
+import static core.DSL.getDriver;
 
 public class NthElementText extends Condition<WebElement> {
 

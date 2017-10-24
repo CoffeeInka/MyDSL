@@ -1,13 +1,13 @@
 package com.google.testconfigs;
 
-import com.google.core.DSL;
+import core.DSL;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 
-public class BaseTest extends DSL{
+public class BaseTest extends DSL {
 
     @Before
     public void setup() {
