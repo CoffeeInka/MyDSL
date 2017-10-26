@@ -9,4 +9,8 @@ public class MyExpectedConditions {
     public  static Condition sizeOf(int expectedNumber){
         return new SizeOf(expectedNumber);
     }
+
+    public  static Condition visible(){
+        return new Visible();
+    }
 }

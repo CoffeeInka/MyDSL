@@ -3,7 +3,7 @@ package com.google.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
-import static core.DSL.*;
+import static core.ConciseAPI.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
 
 public class Google {

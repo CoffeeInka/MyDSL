@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static core.DSL.getDriver;
+import static core.ConciseAPI.getDriver;
 
 public class NthElementText extends Condition<WebElement> {
 
@@ -37,7 +37,7 @@ public class NthElementText extends Condition<WebElement> {
 
     @Override
     public String toString() {
-        return String.format("Expected text of element \nwith index %d is: %s \nwhile actual text is: %s", index, expectedText, actualText);
+        return String.format("Expected text of element with index %d is: %s \nwhile actual text is: %s", index, expectedText, actualText);
     }
 }
 

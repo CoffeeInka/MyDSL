@@ -8,19 +8,20 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.concurrent.TimeUnit;
 
+import static conditions.MyExpectedConditions.visible;
 import static core.Configuration.timeout;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-public class DSL {
+public class ConciseAPI {
 
     private static WebDriver driver;
 
     public static WebDriver getDriver() {
-        return DSL.driver;
+        return ConciseAPI.driver;
     }
 
     public static void setDriver(WebDriver driver) {
-        DSL.driver = driver;
+        ConciseAPI.driver = driver;
     }
 
     public static void open(String url) {
@@ -28,24 +29,13 @@ public class DSL {
     }
 
     public static WebElement $(By elementLocator) {
-        return assertThat(visibilityOfElementLocated(elementLocator));
+        return assertThat(elementLocator, visible());
     }
 
     public static WebElement setValue(WebElement element, String text) {
         element.clear();
         element.sendKeys(text);
         return element;
-    }
-
-    public static <V> V assertThat(ExpectedCondition<V> condition, long timeout, long polling) {
-        return new FluentWait<>(getDriver())
-                .withTimeout(timeout, TimeUnit.MILLISECONDS)
-                .pollingEvery(polling, TimeUnit.MILLISECONDS)
-                .ignoring(WebDriverException.class, IndexOutOfBoundsException.class).until(condition);
-    }
-
-    public static <V> V assertThat(ExpectedCondition<V> condition) {
-        return assertThat(condition, timeout, Configuration.pollingInterval);
     }
 
     public static <V> V assertThat(By locator, Condition<V> condition) {
@@ -61,7 +51,6 @@ public class DSL {
                 if (value != null) {
                     return value;
                 }
-
                 // Clear the last exception; if another retry or timeout exception would
                 // be caused by a false or null value, the last exception is not the
                 // cause of the timeout.
@@ -70,7 +59,6 @@ public class DSL {
                 lastException = e;
 //                lastException = propagateIfNotIgnored(e);
             }
-
             // Check the timeout after evaluating the function to ensure conditions
             // with a zero timeout can succeed.
             if (System.currentTimeMillis() > end) {
@@ -80,7 +68,6 @@ public class DSL {
                         timeOutInMillis / 1000, pollingIntervalInMillis);
                 throw new TimeoutException(timeoutMessage, lastException);
             }
-
             try {
                 Thread.sleep(pollingIntervalInMillis);
             } catch (InterruptedException e) {

@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static core.DSL.getDriver;
+import static core.ConciseAPI.getDriver;
 
 public class SizeOf extends Condition<List<WebElement>> {
 
