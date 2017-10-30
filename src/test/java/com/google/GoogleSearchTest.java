@@ -5,8 +5,9 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 
 import static com.google.pages.Google.*;
+import static core.conditions.CollectionConditions.nthElementText;
 import static core.conditions.CollectionConditions.size;
-import static core.conditions.ElementConditions.nthElementText;
+import static core.conditions.ElementConditions.text;
 
 
 public class GoogleSearchTest extends BaseTest {
@@ -21,9 +22,8 @@ public class GoogleSearchTest extends BaseTest {
         assertThat(byResults, nthElementText(0, "Selenium automates browsers"));
 
         followLink(0);
-        assertThat(By.cssSelector("#mainContent>h2"), nthElementText(0, "What is Selenium?"));
-//        assertThat(urlToBe("http://www.seleniumhq.org/"));
-        //assertUrl("http://www.seleniumhq.org/");
+        assertThat(By.cssSelector("#mainContent>h2"), text("What is Selenium?"));
+        assertUrl("http://www.seleniumhq.org/");
     }
 
 }

@@ -1,11 +1,21 @@
 package core;
 
 
-import core.conditions.parents.Condition;
-import org.openqa.selenium.*;
+import core.conditions.Condition;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.FluentWait;
 
+import java.util.concurrent.TimeUnit;
+
+import static core.Configuration.pollingInterval;
+import static core.Configuration.timeout;
 import static core.conditions.ElementConditions.visible;
-import static core.conditions.wait.WaitFor.waitFor;
+import static core.WaitFor.waitFor;
+import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
 public class ConciseAPI {
 
@@ -38,9 +48,21 @@ public class ConciseAPI {
         return waitFor(locator).until(condition);
     }
 
-    public void assertUrl(String s) {
-        //to implement
+    //ONLY for conditions without element, lists or locators
+    public static <V> V assertThat(ExpectedCondition<V> condition) {
+        return assertThat(condition, timeout, pollingInterval);
     }
 
+    //ONLY for conditions without element, lists or locators
+    public static <V> V assertThat(ExpectedCondition<V> condition, long timeout, long polling) {
+        return new FluentWait<>(getDriver())
+                .withTimeout(timeout, TimeUnit.MILLISECONDS)
+                .pollingEvery(polling, TimeUnit.MILLISECONDS)
+                .ignoring(WebDriverException.class, IndexOutOfBoundsException.class).until(condition);
+    }
+
+    public static void assertUrl(String url) {
+        assertThat(urlToBe(url));
+    }
 
 }

@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
 import static core.ConciseAPI.*;
-import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
 
 public class Google {
 
@@ -18,7 +17,4 @@ public class Google {
         getDriver().findElements(byResults).get(index).findElement(By.cssSelector(".r>a")).click();
     }
 
-    public void assertResultsAmount(int resultsAmount) {
-        assertThat(numberOfElementsToBe(byResults, resultsAmount));
-    }
 }

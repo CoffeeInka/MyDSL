@@ -1,4 +1,4 @@
-package core.conditions.parents;
+package core.conditions;
 
 
 import org.openqa.selenium.WebElement;
@@ -9,7 +9,11 @@ public abstract class ElementCondition extends AbstractCondition<WebElement> {
 
     @Override
     public WebElement getWrappedEntity() {
-        WebElement element = getDriver().findElement(locator);
-        return element;
+        return getDriver().findElement(locator);
+    }
+
+    @Override
+    public String identity() {
+        return "element: " + getWrappedEntity();
     }
 }

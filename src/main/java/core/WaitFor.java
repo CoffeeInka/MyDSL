@@ -1,8 +1,7 @@
-package core.conditions.wait;
+package core;
 
 
-import core.Configuration;
-import core.conditions.parents.Condition;
+import core.conditions.Condition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
@@ -11,11 +10,11 @@ public class WaitFor {
 
     private By locator;
 
-    WaitFor(By locator){
+    WaitFor(By locator) {
         this.locator = locator;
     }
 
-    public static WaitFor waitFor(By locator){
+    public static WaitFor waitFor(By locator) {
         return new WaitFor(locator);
     }
 
@@ -58,10 +57,14 @@ public class WaitFor {
         }
     }
 
-    private <V> void sleep(){
+    private <V> void sleep() {
+        try {
+            Thread.sleep(Configuration.pollingInterval);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new WebDriverException(e);
+        }
     }
-
-
 
 
 //    public static <V> V until(By locator, Condition<V> condition, long timeOutInMillis, long pollingIntervalInMillis) {

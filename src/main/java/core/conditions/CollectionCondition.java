@@ -1,4 +1,4 @@
-package core.conditions.parents;
+package core.conditions;
 
 
 import org.openqa.selenium.WebElement;
@@ -11,7 +11,11 @@ public abstract class CollectionCondition extends AbstractCondition<List<WebElem
 
     @Override
     public List<WebElement> getWrappedEntity() {
-        List<WebElement> elements = getDriver().findElements(locator);
-        return elements;
+        return getDriver().findElements(locator);
+    }
+
+    @Override
+    public String identity() {
+        return "elements: " + getWrappedEntity();
     }
 }
