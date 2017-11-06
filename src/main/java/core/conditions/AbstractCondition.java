@@ -9,8 +9,9 @@ public abstract class AbstractCondition<T> implements Condition<T> {
 
     public T apply(By locator) {
         this.locator = locator;
-        if (check(getWrappedEntity())) {
-            return getWrappedEntity();
+        T entity = getWrappedEntity();
+        if (check(entity)) {
+            return entity;
         }
         return null;
     }

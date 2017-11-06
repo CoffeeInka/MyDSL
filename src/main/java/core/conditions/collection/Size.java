@@ -6,12 +6,12 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class SizeOf extends CollectionCondition {
+public class Size extends CollectionCondition {
 
     private int expectedSize;
     private int actualSize;
 
-    public SizeOf(int expectedSize) {
+    public Size(int expectedSize) {
         this.expectedSize = expectedSize;
     }
 

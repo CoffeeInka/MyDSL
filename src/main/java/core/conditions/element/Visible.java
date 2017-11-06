@@ -6,18 +6,21 @@ import org.openqa.selenium.WebElement;
 
 public class Visible extends ElementCondition {
 
+    private boolean result;
+
     @Override
     public boolean check(WebElement element) {
-        return (element.isDisplayed());
+        result = element.isDisplayed();
+        return result;
     }
 
     @Override
     public String expected() {
-        return "to be displayed";
+        return "true";
     }
 
     @Override
     public String actual() {
-        return "" + apply(locator);
+        return String.valueOf(result);
     }
 }

@@ -16,6 +16,6 @@ public abstract class CollectionCondition extends AbstractCondition<List<WebElem
 
     @Override
     public String identity() {
-        return "elements: " + getWrappedEntity();
+        return "elements: ";
     }
 }

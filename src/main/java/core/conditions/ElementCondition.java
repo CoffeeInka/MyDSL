@@ -14,6 +14,6 @@ public abstract class ElementCondition extends AbstractCondition<WebElement> {
 
     @Override
     public String identity() {
-        return "element: " + getWrappedEntity();
+        return "element: ";
     }
 }

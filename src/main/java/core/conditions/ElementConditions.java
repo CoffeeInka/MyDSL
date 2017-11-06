@@ -11,7 +11,7 @@ public class ElementConditions {
         return new Visible();
     }
 
-    public static Condition<WebElement> text(String expectedText) {
-        return new Text(expectedText);
+    public static Condition<WebElement> text(String text) {
+        return new Text(text);
     }
 }
