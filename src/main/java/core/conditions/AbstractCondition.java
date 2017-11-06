@@ -16,7 +16,7 @@ public abstract class AbstractCondition<T> implements Condition<T> {
         return null;
     }
 
-    public abstract T getWrappedEntity();
+//    public abstract T getWrappedEntity();
 
     public abstract boolean check(T entity);
 
