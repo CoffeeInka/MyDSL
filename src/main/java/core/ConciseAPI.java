@@ -45,7 +45,8 @@ public class ConciseAPI {
     }
 
     public static <V> V assertThat(By locator, Condition<V> condition) {
-        return waitFor(locator).until(condition);
+        //return waitFor(locator).until(condition);
+        return waitFor(lazyEntity).until(condition);
     }
 
     //ONLY for conditions without element, lists or locators

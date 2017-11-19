@@ -1,6 +1,9 @@
-package core.conditions;
+package core.elementsandcollections;
 
 
 public interface LazyEntity<T> {
+
     T getWrappedEntity();
+
+
 }

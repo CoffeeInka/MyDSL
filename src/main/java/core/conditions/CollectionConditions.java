@@ -1,7 +1,7 @@
 package core.conditions;
 
-import core.conditions.collection.NthElementText;
 import core.conditions.collection.Size;
+import core.conditions.collection.NthElementText;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;

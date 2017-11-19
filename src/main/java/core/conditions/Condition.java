@@ -1,11 +1,11 @@
 package core.conditions;
 
 
-import org.openqa.selenium.By;
+import core.elementsandcollections.LazyEntity;
 
 public interface Condition<T> {
 
-    T getWrappedEntity();
+    T apply(LazyEntity<T> lazyEntity);
 
-    T apply(By locator);
+
 }

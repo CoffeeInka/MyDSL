@@ -1,14 +1,17 @@
 package core.conditions;
 
 
+import core.elementsandcollections.LazyEntity;
 import org.openqa.selenium.By;
 
 public abstract class AbstractCondition<T> implements Condition<T> {
 
-    public By locator;
+//    public By locator;
 
-    public T apply(By locator) {
-        this.locator = locator;
+    public LazyEntity lazyEntity;
+
+    public T apply(LazyEntity lazyEntity) {
+        this.lazyEntity = lazyEntity;
         T entity = getWrappedEntity();
         if (check(entity)) {
             return entity;

@@ -2,20 +2,27 @@ package core;
 
 
 import core.conditions.Condition;
+import core.elementsandcollections.LazyEntity;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 
 public class WaitFor {
 
-    private By locator;
+//    private By locator;
 
-    WaitFor(By locator) {
-        this.locator = locator;
+//    WaitFor(By locator) {
+//        this.locator = locator;
+//    }
+
+    private LazyEntity lazyEntity;
+
+    WaitFor(LazyEntity lazyEntity) {
+        this.lazyEntity = lazyEntity;
     }
 
-    public static WaitFor waitFor(By locator) {
-        return new WaitFor(locator);
+    public static WaitFor waitFor(LazyEntity lazyEntity) {
+        return new WaitFor(lazyEntity);
     }
 
     public <V> V until(Condition<V> condition) {
@@ -27,7 +34,8 @@ public class WaitFor {
         Throwable lastException;
         while (true) {
             try {
-                V value = condition.apply(locator);
+                //V value = condition.apply(locator);
+                V value = condition.apply(lazyEntity);
                 if (value != null) {
                     return value;
                 }
@@ -48,13 +56,13 @@ public class WaitFor {
                         timeOutInMillis / 1000, pollingIntervalInMillis);
                 throw new TimeoutException(timeoutMessage, lastException);
             }
-            sleep();
+            sleep(Configuration.pollingInterval);
         }
     }
 
-    private <V> void sleep() {
+    private <V> void sleep(long pollingIntervalInMillis) {
         try {
-            Thread.sleep(Configuration.pollingInterval);
+            Thread.sleep(pollingIntervalInMillis);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new WebDriverException(e);

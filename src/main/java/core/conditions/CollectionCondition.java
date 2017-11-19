@@ -9,10 +9,10 @@ import static core.ConciseAPI.getDriver;
 
 public abstract class CollectionCondition extends AbstractCondition<List<WebElement>> {
 
-    @Override
-    public List<WebElement> getWrappedEntity() {
-        return getDriver().findElements(locator);
-    }
+//    @Override
+//    public List<WebElement> getWrappedEntity() {
+//        return getDriver().findElements(locator);
+//    }
 
     @Override
     public String identity() {
