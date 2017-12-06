@@ -1,4 +1,4 @@
-package core.elementsandcollections;
+package core.entities;
 
 import core.conditions.Condition;
 import org.openqa.selenium.By;
@@ -23,8 +23,15 @@ public class LazyWebDriverCollection extends AbstractLazyCollection {
         return getDriver().findElements(locator);
     }
 
-    public LazyEntity should(Condition<T> condition){
-        return waitFor(getWrappedEntity()).until(condition);
+    @Override
+    public List<WebElement> identity() {
+        return null;
+    }
+
+
+    @Override
+    public LazyCollection shouldBe(Condition<List<WebElement>> condition) {
+        return null;
     }
 
     @Override

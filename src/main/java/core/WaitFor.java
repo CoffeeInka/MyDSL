@@ -2,8 +2,7 @@ package core;
 
 
 import core.conditions.Condition;
-import core.elementsandcollections.LazyEntity;
-import org.openqa.selenium.By;
+import core.entities.LazyEntity;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 
@@ -56,13 +55,13 @@ public class WaitFor {
                         timeOutInMillis / 1000, pollingIntervalInMillis);
                 throw new TimeoutException(timeoutMessage, lastException);
             }
-            sleep(Configuration.pollingInterval);
+            sleep(pollingIntervalInMillis);
         }
     }
 
-    private <V> void sleep(long pollingIntervalInMillis) {
+    private <V> void sleep(long timeOutInMillis) {
         try {
-            Thread.sleep(pollingIntervalInMillis);
+            Thread.sleep(timeOutInMillis);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new WebDriverException(e);

@@ -2,6 +2,7 @@ package core;
 
 
 import core.conditions.Condition;
+import core.entities.LazyEntity;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -44,7 +45,11 @@ public class ConciseAPI {
         return element;
     }
 
-    public static <V> V assertThat(By locator, Condition<V> condition) {
+//    public static <V> V assertThat(By locator, Condition<V> condition) {
+//        return waitFor(locator).until(condition);
+//    }
+
+    public static <V> V assertThat(LazyEntity lazyEntity, Condition<V> condition) {
         //return waitFor(locator).until(condition);
         return waitFor(lazyEntity).until(condition);
     }

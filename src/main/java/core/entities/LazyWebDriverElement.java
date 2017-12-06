@@ -1,4 +1,4 @@
-package core.elementsandcollections;
+package core.entities;
 
 import core.conditions.Condition;
 import org.openqa.selenium.By;
@@ -7,11 +7,11 @@ import org.openqa.selenium.WebElement;
 import static core.ConciseAPI.getDriver;
 
 
-public class Element extends AbstractLazyElement {
+public class LazyWebDriverElement extends AbstractLazyElement {
 
     private By locator;
 
-    public Element(By locator) {
+    public LazyWebDriverElement(By locator) {
         this.locator = locator;
     }
 
@@ -21,7 +21,7 @@ public class Element extends AbstractLazyElement {
     }
 
     @Override
-    public LazyElement shouldBe(Condition<WebElement> condition) {
+    public WebElement identity() {
         return null;
     }
 }

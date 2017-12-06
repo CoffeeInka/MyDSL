@@ -1,8 +1,7 @@
 package core.conditions;
 
 
-import core.elementsandcollections.LazyEntity;
-import org.openqa.selenium.By;
+import core.entities.LazyEntity;
 
 public abstract class AbstractCondition<T> implements Condition<T> {
 
@@ -30,7 +29,7 @@ public abstract class AbstractCondition<T> implements Condition<T> {
                 "actual result is " + actual();
     }
 
-    public abstract String identity();
+//    public abstract String identity();
 
     public abstract String expected();
 

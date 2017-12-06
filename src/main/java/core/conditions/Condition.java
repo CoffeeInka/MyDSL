@@ -1,7 +1,7 @@
 package core.conditions;
 
 
-import core.elementsandcollections.LazyEntity;
+import core.entities.LazyEntity;
 
 public interface Condition<T> {
 
