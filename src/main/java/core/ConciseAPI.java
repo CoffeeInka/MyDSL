@@ -34,6 +34,10 @@ public class ConciseAPI {
         getDriver().get(url);
     }
 
+    public static By byText(String text) {
+        return By.xpath(String.format("//*[text()='%s']", text));
+    }
+
     public static LazyElement $(By locator) {
         return new LazyWebDriverElement(locator);
     }
