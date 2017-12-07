@@ -1,12 +1,12 @@
 package core.conditions.collection;
 
 
-import core.conditions.CollectionCondition;
+import core.conditions.AbstractCondition;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class NthElementText extends CollectionCondition {
+public class NthElementText extends AbstractCondition<List<WebElement>> {
 
     private String expectedText;
     private int index;

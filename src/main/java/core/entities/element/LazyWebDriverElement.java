@@ -1,6 +1,5 @@
-package core.entities;
+package core.entities.element;
 
-import core.conditions.Condition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -21,7 +20,7 @@ public class LazyWebDriverElement extends AbstractLazyElement {
     }
 
     @Override
-    public WebElement identity() {
-        return null;
+    public String toString() {
+        return "Found by locator " + locator;
     }
 }

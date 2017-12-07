@@ -1,20 +1,26 @@
 package com.google.pages;
 
+import core.entities.collection.LazyCollection;
+import core.entities.element.LazyElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 
 import static core.ConciseAPI.*;
 
 public class Google {
 
-    public static By byResults = By.cssSelector(".srg>.g");
+    public static LazyCollection results = $$(By.cssSelector(".srg>.g"));
+
+    public static LazyElement result(int index){
+        return $(By.cssSelector(".srg>.g:nth-child(" + (index+1) + ") .r>a"));
+    }
 
     public static void search(String query) {
-        setValue($(By.name("q")), query + Keys.ENTER);
+        $(By.name("q")).setValue(query).pressEnter();
     }
 
     public static void followLink(int index) {
-        getDriver().findElements(byResults).get(index).findElement(By.cssSelector(".r>a")).click();
+        result(index).click();
+//        results.getWrappedEntity().get(index).$(By.cssSelector(".r>a")).click();
     }
 
 }

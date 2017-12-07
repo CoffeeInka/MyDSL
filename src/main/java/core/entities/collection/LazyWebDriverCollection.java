@@ -1,13 +1,11 @@
-package core.entities;
+package core.entities.collection;
 
-import core.conditions.Condition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
 import static core.ConciseAPI.getDriver;
-import static core.WaitFor.waitFor;
 
 
 public class LazyWebDriverCollection extends AbstractLazyCollection {
@@ -24,18 +22,7 @@ public class LazyWebDriverCollection extends AbstractLazyCollection {
     }
 
     @Override
-    public List<WebElement> identity() {
-        return null;
-    }
-
-
-    @Override
-    public LazyCollection shouldBe(Condition<List<WebElement>> condition) {
-        return null;
-    }
-
-    @Override
-    public LazyCollection shouldHave(Condition<List<WebElement>> condition) {
-        return null;
+    public String toString() {
+        return "Found by locator " + locator;
     }
 }

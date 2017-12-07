@@ -6,35 +6,29 @@ import core.entities.LazyEntity;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 
-public class WaitFor {
+public class WaitFor<T> {
 
-//    private By locator;
+    private LazyEntity <T> lazyEntity;
 
-//    WaitFor(By locator) {
-//        this.locator = locator;
-//    }
-
-    private LazyEntity lazyEntity;
-
-    WaitFor(LazyEntity lazyEntity) {
+    WaitFor(LazyEntity<T> lazyEntity) {
         this.lazyEntity = lazyEntity;
     }
 
-    public static WaitFor waitFor(LazyEntity lazyEntity) {
+    public static <V> WaitFor<V> waitFor(LazyEntity <V> lazyEntity) {
         return new WaitFor(lazyEntity);
     }
 
-    public <V> V until(Condition<V> condition) {
+    public T until(Condition<T> condition) {
         return until(condition, Configuration.timeout, Configuration.pollingInterval);
     }
 
-    public <V> V until(Condition<V> condition, long timeOutInMillis, long pollingIntervalInMillis) {
+    public T until(Condition<T> condition, long timeOutInMillis, long pollingIntervalInMillis) {
         long end = System.currentTimeMillis() + timeOutInMillis;
         Throwable lastException;
         while (true) {
             try {
                 //V value = condition.apply(locator);
-                V value = condition.apply(lazyEntity);
+                T value = condition.apply(lazyEntity);
                 if (value != null) {
                     return value;
                 }
@@ -59,7 +53,7 @@ public class WaitFor {
         }
     }
 
-    private <V> void sleep(long timeOutInMillis) {
+    private void sleep(long timeOutInMillis) {
         try {
             Thread.sleep(timeOutInMillis);
         } catch (InterruptedException e) {

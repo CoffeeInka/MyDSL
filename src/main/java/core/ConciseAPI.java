@@ -1,8 +1,10 @@
 package core;
 
 
-import core.conditions.Condition;
-import core.entities.LazyEntity;
+import core.entities.collection.LazyCollection;
+import core.entities.element.LazyElement;
+import core.entities.collection.LazyWebDriverCollection;
+import core.entities.element.LazyWebDriverElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -14,8 +16,6 @@ import java.util.concurrent.TimeUnit;
 
 import static core.Configuration.pollingInterval;
 import static core.Configuration.timeout;
-import static core.conditions.ElementConditions.visible;
-import static core.WaitFor.waitFor;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
 public class ConciseAPI {
@@ -34,10 +34,13 @@ public class ConciseAPI {
         getDriver().get(url);
     }
 
-    public static WebElement $(By locator) {
-        return assertThat(locator, visible());
+    public static LazyElement $(By locator) {
+        return new LazyWebDriverElement(locator);
     }
 
+    public static LazyCollection $$(By locator) {
+        return new LazyWebDriverCollection(locator);
+    }
 
     public static WebElement setValue(WebElement element, String text) {
         element.clear();
@@ -45,14 +48,6 @@ public class ConciseAPI {
         return element;
     }
 
-//    public static <V> V assertThat(By locator, Condition<V> condition) {
-//        return waitFor(locator).until(condition);
-//    }
-
-    public static <V> V assertThat(LazyEntity lazyEntity, Condition<V> condition) {
-        //return waitFor(locator).until(condition);
-        return waitFor(lazyEntity).until(condition);
-    }
 
     //ONLY for conditions without element, lists or locators
     public static <V> V assertThat(ExpectedCondition<V> condition) {

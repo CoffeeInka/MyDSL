@@ -5,5 +5,5 @@ public interface LazyEntity<T> {
 
     T getWrappedEntity();
 
-    T identity();
+    String identity();
 }

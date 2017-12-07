@@ -1,10 +1,10 @@
 package core.conditions.element;
 
 
-import core.conditions.ElementCondition;
+import core.conditions.AbstractCondition;
 import org.openqa.selenium.WebElement;
 
-public class Visible extends ElementCondition {
+public class Visible extends AbstractCondition<WebElement> {
 
     private boolean result;
 

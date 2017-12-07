@@ -18,11 +18,11 @@ public class GoogleSearchTest extends BaseTest {
 
         open("http://www.google.com");
         search("Selenium automates browsers");
-        assertThat(byResults, size(10));
-        assertThat(byResults, nthElementText(0, "Selenium automates browsers"));
+        results.shouldHave(size(10));
+        results.shouldHave(nthElementText(0, "Selenium automates browsers"));
 
         followLink(0);
-        assertThat(By.cssSelector("#mainContent>h2"), text("What is Selenium?"));
+        $(By.cssSelector("#mainContent>h2")).shouldHave(text("What is Selenium?"));
         assertUrl("http://www.seleniumhq.org/");
     }
 

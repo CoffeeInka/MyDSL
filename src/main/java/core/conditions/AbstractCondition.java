@@ -5,31 +5,25 @@ import core.entities.LazyEntity;
 
 public abstract class AbstractCondition<T> implements Condition<T> {
 
-//    public By locator;
-
     public LazyEntity lazyEntity;
 
-    public T apply(LazyEntity lazyEntity) {
+    public T apply(LazyEntity<T> lazyEntity) {
         this.lazyEntity = lazyEntity;
-        T entity = getWrappedEntity();
+        T entity = lazyEntity.getWrappedEntity();
         if (check(entity)) {
             return entity;
         }
         return null;
     }
 
-//    public abstract T getWrappedEntity();
-
     public abstract boolean check(T entity);
 
     public String toString() {
         return this.getClass().getSimpleName() +
-                "\nfor " + identity() + " found by locator: " + locator +
+                "\nfor " + lazyEntity.identity() + lazyEntity +
                 "\nexpected result is " + expected() + "\n" +
                 "actual result is " + actual();
     }
-
-//    public abstract String identity();
 
     public abstract String expected();
 
