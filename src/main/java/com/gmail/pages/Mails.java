@@ -7,6 +7,7 @@ import static core.ConciseAPI.$;
 import static core.ConciseAPI.$$;
 import static core.ConciseAPI.byText;
 import static core.conditions.CollectionConditions.nthElementText;
+import static core.conditions.CollectionConditions.textsOf;
 
 public class Mails {
 
