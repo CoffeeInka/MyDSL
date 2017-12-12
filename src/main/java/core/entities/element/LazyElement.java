@@ -5,7 +5,7 @@ import core.conditions.Condition;
 import core.entities.LazyEntity;
 import org.openqa.selenium.WebElement;
 
-public interface LazyElement extends LazyEntity<WebElement> {
+public interface LazyElement extends LazyEntity<WebElement>, WebElement {
 
     LazyElement should(Condition<WebElement> condition);
 
@@ -14,8 +14,6 @@ public interface LazyElement extends LazyEntity<WebElement> {
     LazyElement shouldHave(Condition<WebElement> condition);
 
     LazyElement setValue(String value);
-
-    LazyElement click();
 
     LazyElement pressEnter();
 

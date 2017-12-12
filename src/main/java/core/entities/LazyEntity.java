@@ -1,9 +1,7 @@
 package core.entities;
 
 
-public interface LazyEntity<T> {
+public interface LazyEntity<T> extends DescribesEntity{
 
     T getWrappedEntity();
-
-    String identity();
 }

@@ -2,10 +2,12 @@ package core.entities.element;
 
 
 import core.conditions.Condition;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+
+import java.util.List;
 
 import static core.WaitFor.waitFor;
+import static core.conditions.ElementConditions.present;
 import static core.conditions.ElementConditions.visible;
 
 public abstract class AbstractLazyElement implements LazyElement {
@@ -40,9 +42,95 @@ public abstract class AbstractLazyElement implements LazyElement {
         return this;
     }
 
-    public LazyElement click(){
+    @Override
+    public void click() {
         this.shouldBe(visible());
         getWrappedEntity().click();
-        return this;
     }
+
+    @Override
+    public void submit() {
+        this.shouldBe(visible());
+        getWrappedEntity().submit();
+    }
+
+    @Override
+    public void sendKeys(CharSequence... charSequences) {
+
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public String getTagName() {
+        //present
+        return null;
+    }
+
+    @Override
+    public String getAttribute(String s) {
+        //present
+        return null;
+    }
+
+    @Override
+    public boolean isSelected() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    @Override
+    public String getText() {
+        return null;
+    }
+
+    @Override
+    public List<WebElement> findElements(By by) {
+        return null;
+    }
+
+    @Override
+    public WebElement findElement(By by) {
+        return null;
+    }
+
+    @Override
+    public boolean isDisplayed() {
+        //present
+        this.shouldBe(present());
+        return this.getWrappedEntity().isDisplayed();
+    }
+
+    @Override
+    public Point getLocation() {
+        return null;
+    }
+
+    @Override
+    public Dimension getSize() {
+        return null;
+    }
+
+    @Override
+    public Rectangle getRect() {
+        return null;
+    }
+
+    @Override
+    public String getCssValue(String s) {
+        return null;
+    }
+
+    @Override
+    public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {
+        return null;
+    }
+
 }

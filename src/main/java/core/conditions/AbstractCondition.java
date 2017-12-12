@@ -3,7 +3,7 @@ package core.conditions;
 
 import core.entities.LazyEntity;
 
-public abstract class AbstractCondition<T> implements Condition<T> {
+public abstract class AbstractCondition<T> implements Condition<T>, DescribesResult {
 
     public LazyEntity lazyEntity;
 
@@ -24,8 +24,4 @@ public abstract class AbstractCondition<T> implements Condition<T> {
                 "\nexpected result is " + expected() + "\n" +
                 "actual result is " + actual();
     }
-
-    public abstract String expected();
-
-    public abstract String actual();
 }
