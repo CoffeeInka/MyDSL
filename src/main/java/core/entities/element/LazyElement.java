@@ -3,6 +3,7 @@ package core.entities.element;
 
 import core.conditions.Condition;
 import core.entities.LazyEntity;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public interface LazyElement extends LazyEntity<WebElement>, WebElement {
@@ -16,5 +17,9 @@ public interface LazyElement extends LazyEntity<WebElement>, WebElement {
     LazyElement setValue(String value);
 
     LazyElement pressEnter();
+
+    LazyElement $(By locator);
+
+    LazyElement $(String innerSelector);
 
 }

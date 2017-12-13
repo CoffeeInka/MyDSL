@@ -5,6 +5,7 @@ import core.entities.element.LazyElement;
 import org.junit.Test;
 
 import static com.herokuapp.pages.ToDoMVC.*;
+import static core.conditions.CollectionConditions.size;
 import static core.conditions.ElementConditions.text;
 
 public class ToDoMVCLifeCycleTest extends BaseTest {
@@ -14,10 +15,10 @@ public class ToDoMVCLifeCycleTest extends BaseTest {
     public void testTasksLifeCycle() {
         given();
 
-        add("A", "A");
+        add("A", "B");
+        tasks.shouldHave(size(2));
         for (LazyElement element:tasks) {
             System.out.println(element.getText());
-            element.shouldHave(text("A"));
         }
 
 

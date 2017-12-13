@@ -42,6 +42,14 @@ public abstract class AbstractLazyElement implements LazyElement {
         return this;
     }
 
+    public LazyElement $(By locator){
+        return new LazyInnerElement(this, locator);
+    }
+
+    public LazyElement $(String innerSelector){
+        return new LazyInnerElement(this, innerSelector);
+    }
+
     @Override
     public void click() {
         this.shouldBe(visible());
@@ -87,12 +95,12 @@ public abstract class AbstractLazyElement implements LazyElement {
     @Override
     public boolean isEnabled() {
         this.shouldBe(visible());
-        return true;
+        return getWrappedEntity().isEnabled();
     }
 
     @Override
     public String getText() {
-        this.shouldBe(present() );
+        this.shouldBe(visible());
         return getWrappedEntity().getText();
     }
 
@@ -111,7 +119,7 @@ public abstract class AbstractLazyElement implements LazyElement {
     @Override
     public boolean isDisplayed() {
         this.shouldBe(present());
-        return true;
+        return getWrappedEntity().isDisplayed();
     }
 
     @Override

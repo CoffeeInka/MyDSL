@@ -2,6 +2,7 @@ package com.google;
 
 import com.google.testconfigs.BaseTest;
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 import static com.google.pages.Google.results;
 import static com.google.pages.Google.search;
@@ -18,8 +19,9 @@ public class GoogleSearchTest extends BaseTest {
         open("http://www.google.com");
         search("Selenium automates browsers");
         results.shouldHave(size(10));
-//        results.shouldHave(nthElementText(0, "Selenium automates browsers"));
         results.get(0).shouldHave(text("Selenium automates browsers"));
+        results.get(0).$(By.cssSelector(".r>a")).click();
+        results.get(0).$(".r>a").click();
 
 
 //
