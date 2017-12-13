@@ -4,6 +4,7 @@ package core.entities.collection;
 import core.conditions.Condition;
 import core.entities.element.LazyCollectionNthElement;
 import core.entities.element.LazyElement;
+import core.entities.element.LazyFilteredElement;
 import core.entities.element.LazyWrappedWebElement;
 import org.openqa.selenium.WebElement;
 
@@ -50,5 +51,14 @@ public abstract class AbstractLazyCollection implements LazyCollection {
         return new LazyCollectionNthElement(this, index);
     }
 
+    @Override
+    public LazyCollection filter(Condition<WebElement> condition) {
+        return new LazyFilteredCollection(this, condition);
+    }
+
+    @Override
+    public LazyElement find(Condition<WebElement> condition) {
+        return new LazyFilteredElement(this, condition);
+    }
 }
 

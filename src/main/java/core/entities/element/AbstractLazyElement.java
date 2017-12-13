@@ -51,6 +51,18 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     @Override
+    public boolean is(Condition<WebElement> condition) {
+        try {
+            if (condition.apply(this) != null) {
+                return true;
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public void click() {
         this.shouldBe(visible());
         getWrappedEntity().click();

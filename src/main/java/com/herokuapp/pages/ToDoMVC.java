@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import java.util.Arrays;
 
 import static core.ConciseAPI.*;
+import static core.conditions.ElementConditions.text;
+import static core.conditions.ElementConditions.visible;
 
 public class ToDoMVC {
 
@@ -17,6 +19,47 @@ public class ToDoMVC {
         for (String text : tasksTexts) {
             $(By.cssSelector("#new-todo")).setValue(text).pressEnter();
         }
+    }
+
+//    public static void toggle(String taskText) {
+//        $(listElementWithText(tasks, taskText), ".toggle").click();
+//    }
+
+    public static void toggleAll() {
+        $(By.cssSelector("#toggle-all")).click();
+    }
+
+    public static void filterCompleted() {
+        filters.find(text("Completed")).click();
+    }
+
+    public static void filterActive() {
+        filters.find(text("Active")).click();
+    }
+
+    public static void filterAll() {
+        filters.find(text("All")).click();
+    }
+
+
+    public static void givenAtActive(Task... tasks) {
+        given(tasks);
+        filterActive();
+    }
+
+    public static void givenAtActive(TaskStatus status, String... taskTexts) {
+        given(tasksWithStatus(status, taskTexts));
+        filterActive();
+    }
+
+    public static void givenAtCompleted(Task... tasks) {
+        given(tasks);
+        filterCompleted();
+    }
+
+    public static void givenAtCompleted(TaskStatus status, String... taskTexts) {
+        given(tasksWithStatus(status, taskTexts));
+        filterCompleted();
     }
 
     public static void given(Task... tasks) {

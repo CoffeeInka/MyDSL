@@ -22,4 +22,6 @@ public interface LazyElement extends LazyEntity<WebElement>, WebElement {
 
     LazyElement $(String innerSelector);
 
+    boolean is(Condition<WebElement> condition);
+
 }

@@ -18,4 +18,8 @@ public interface LazyCollection extends LazyEntity<List<WebElement>>, Iterable<L
 
     LazyElement get(int index);
 
+    LazyCollection filter(Condition<WebElement> condition);
+
+    LazyElement find(Condition<WebElement> condition);
+
 }
