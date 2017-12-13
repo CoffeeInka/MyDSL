@@ -3,24 +3,23 @@ package core.entities.element;
 import core.entities.collection.LazyCollection;
 import org.openqa.selenium.WebElement;
 
-import java.util.AbstractCollection;
-
 public class LazyCollectionNthElement extends AbstractLazyElement {
 
     LazyCollection collection;
-
     int index;
 
     public LazyCollectionNthElement(LazyCollection collection, int index) {
+        this.collection = collection;
+        this.index = index;
     }
 
     @Override
     public WebElement getWrappedEntity() {
-        return this.collection;
+        return collection.get(index);
     }
 
     @Override
     public String toString() {
-        return "Wrapped element " + element;
+        return " Wrapped nth element " + collection.getWrappedEntity().get(index);
     }
 }

@@ -47,6 +47,13 @@ public abstract class AbstractLazyCollection implements LazyCollection {
 
     @Override
     public LazyElement get(int index){
+//        try {
+//            index >= getWrappedEntity().size();
+//            index < 0;
+//        }
+//        catch (IndexOutOfBoundsException e){
+//            System.out.println("Index out of bounds exception occurred");
+//        }
         return new LazyCollectionNthElement(this, index);
     }
 

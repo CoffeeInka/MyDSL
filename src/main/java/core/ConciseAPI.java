@@ -5,10 +5,7 @@ import core.entities.collection.LazyCollection;
 import core.entities.element.LazyElement;
 import core.entities.collection.LazyWebDriverCollection;
 import core.entities.element.LazyWebDriverElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -68,6 +65,14 @@ public class ConciseAPI {
 
     public static void assertUrl(String url) {
         assertThat(urlToBe(url));
+    }
+
+    public static void refresh() {
+        getDriver().navigate().refresh();
+    }
+
+    public static void executeJavaScript(String jsCommand) {
+        ((JavascriptExecutor) getDriver()).executeScript(jsCommand);
     }
 
 }

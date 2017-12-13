@@ -12,7 +12,7 @@ import static core.conditions.ElementConditions.visible;
 
 public abstract class AbstractLazyElement implements LazyElement {
 
-    public String identity(){
+    public String identity() {
         return "Element";
     }
 
@@ -29,14 +29,14 @@ public abstract class AbstractLazyElement implements LazyElement {
         return this.should(condition);
     }
 
-    public LazyElement setValue(String value){
+    public LazyElement setValue(String value) {
         this.shouldBe(visible());
         getWrappedEntity().clear();
         getWrappedEntity().sendKeys(value);
         return this;
     }
 
-    public LazyElement pressEnter(){
+    public LazyElement pressEnter() {
         this.shouldBe(visible());
         getWrappedEntity().sendKeys(Keys.ENTER);
         return this;
@@ -56,81 +56,91 @@ public abstract class AbstractLazyElement implements LazyElement {
 
     @Override
     public void sendKeys(CharSequence... charSequences) {
-
+        this.shouldBe(visible());
+        getWrappedEntity().sendKeys(charSequences);
     }
 
     @Override
     public void clear() {
-
+        this.shouldBe(visible());
+        getWrappedEntity().clear();
     }
 
     @Override
     public String getTagName() {
-        //present
-        return null;
+        this.shouldBe(present());
+        return getWrappedEntity().getTagName();
     }
 
     @Override
     public String getAttribute(String s) {
-        //present
-        return null;
+        this.shouldBe(present());
+        return getWrappedEntity().getAttribute(s);
     }
 
     @Override
     public boolean isSelected() {
-        return false;
+        this.shouldBe(visible());
+        return getWrappedEntity().isSelected();
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        this.shouldBe(visible());
+        return true;
     }
 
     @Override
     public String getText() {
-        return null;
+        this.shouldBe(present() );
+        return getWrappedEntity().getText();
     }
 
     @Override
     public List<WebElement> findElements(By by) {
-        return null;
+        this.shouldBe(visible());
+        return getWrappedEntity().findElements(by);
     }
 
     @Override
     public WebElement findElement(By by) {
-        return null;
+        this.shouldBe(visible());
+        return getWrappedEntity().findElement(by);
     }
 
     @Override
     public boolean isDisplayed() {
-        //present
         this.shouldBe(present());
-        return this.getWrappedEntity().isDisplayed();
+        return true;
     }
 
     @Override
     public Point getLocation() {
-        return null;
+        this.shouldBe(visible());
+        return getWrappedEntity().getLocation();
     }
 
     @Override
     public Dimension getSize() {
-        return null;
+        this.shouldBe(visible());
+        return getWrappedEntity().getSize();
     }
 
     @Override
     public Rectangle getRect() {
-        return null;
+        this.shouldBe(visible());
+        return getWrappedEntity().getRect();
     }
 
     @Override
     public String getCssValue(String s) {
-        return null;
+        this.shouldBe(visible());
+        return getWrappedEntity().getCssValue(s);
     }
 
     @Override
     public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {
-        return null;
+        return getWrappedEntity().getScreenshotAs(outputType);
     }
 
 }
