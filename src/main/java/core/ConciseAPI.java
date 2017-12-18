@@ -2,10 +2,13 @@ package core;
 
 
 import core.entities.collection.LazyCollection;
-import core.entities.element.LazyElement;
 import core.entities.collection.LazyWebDriverCollection;
+import core.entities.element.LazyElement;
 import core.entities.element.LazyWebDriverElement;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.FluentWait;
 
@@ -43,13 +46,6 @@ public class ConciseAPI {
         return new LazyWebDriverCollection(locator);
     }
 
-    public static WebElement setValue(WebElement element, String text) {
-        element.clear();
-        element.sendKeys(text);
-        return element;
-    }
-
-
     //ONLY for conditions without element, lists or locators
     public static <V> V assertThat(ExpectedCondition<V> condition) {
         return assertThat(condition, timeout, pollingInterval);
@@ -74,5 +70,11 @@ public class ConciseAPI {
     public static void executeJavaScript(String jsCommand) {
         ((JavascriptExecutor) getDriver()).executeScript(jsCommand);
     }
+
+//    public static void hover(LazyElement element) {
+//        element.shouldBe(visible());
+//        Actions actions = new Actions(getDriver());
+//        actions.moveToElement(element).perform();
+//    }
 
 }

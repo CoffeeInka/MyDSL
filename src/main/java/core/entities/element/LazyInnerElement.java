@@ -2,6 +2,10 @@ package core.entities.element;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
+import static core.ConciseAPI.getDriver;
+import static core.conditions.ElementConditions.visible;
 
 public class LazyInnerElement extends AbstractLazyElement {
 
@@ -38,5 +42,6 @@ public class LazyInnerElement extends AbstractLazyElement {
     public WebElement getWrappedEntity() {
         return this.parentElement.getWrappedEntity().findElement(locator);
     }
+
 
 }

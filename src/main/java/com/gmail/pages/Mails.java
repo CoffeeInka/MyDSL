@@ -3,11 +3,9 @@ package com.gmail.pages;
 import core.entities.collection.LazyCollection;
 import org.openqa.selenium.By;
 
-import static core.ConciseAPI.$;
-import static core.ConciseAPI.$$;
-import static core.ConciseAPI.byText;
-import static core.conditions.CollectionConditions.nthElementText;
-import static core.conditions.CollectionConditions.textsOf;
+import static core.ConciseAPI.*;
+import static core.conditions.CollectionConditions.texts;
+import static core.conditions.ElementConditions.text;
 
 public class Mails {
 
@@ -23,7 +21,7 @@ public class Mails {
     }
 
     public static void assertMail(int index, String text) {
-        mailList.shouldHave(nthElementText(index, text));
+        mailList.get(index).shouldHave(text(text));
     }
 
     public static void searchInInboxBy(String subject) {
@@ -31,7 +29,7 @@ public class Mails {
     }
 
     public static void assertMails(String... texts) {
-        mailList.shouldHave(textsOf(texts));
+        mailList.shouldHave(texts(texts));
     }
 }
 

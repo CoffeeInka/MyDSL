@@ -3,9 +3,11 @@ package core.entities.element;
 
 import core.conditions.Condition;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
+import static core.ConciseAPI.getDriver;
 import static core.WaitFor.waitFor;
 import static core.conditions.ElementConditions.present;
 import static core.conditions.ElementConditions.visible;
@@ -48,6 +50,13 @@ public abstract class AbstractLazyElement implements LazyElement {
 
     public LazyElement $(String innerSelector){
         return new LazyInnerElement(this, innerSelector);
+    }
+
+    @Override
+    public void hover(LazyElement element) {
+        element.shouldBe(visible());
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(element).perform();
     }
 
     @Override

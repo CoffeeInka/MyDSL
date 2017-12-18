@@ -1,12 +1,17 @@
 package com.herokuapp.pages;
 
 import core.entities.collection.LazyCollection;
+import core.entities.element.LazyElement;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.Arrays;
 
 import static core.ConciseAPI.*;
+import static core.conditions.CollectionConditions.size;
+import static core.conditions.CollectionConditions.texts;
 import static core.conditions.ElementConditions.text;
 import static core.conditions.ElementConditions.visible;
 
@@ -21,9 +26,50 @@ public class ToDoMVC {
         }
     }
 
-//    public static void toggle(String taskText) {
-//        $(listElementWithText(tasks, taskText), ".toggle").click();
+    public static void toggle(String taskText) {
+        tasks.find(text(taskText)).$(".toggle").click();
+    }
+
+    public static void assertTasks(String... tasksTexts) {
+        tasks.filter(visible()).shouldHave(texts(tasksTexts));
+    }
+
+    public static void assertNoTasks() {
+        tasks.filter(visible()).shouldHave(size(0));
+    }
+
+    public static void assertItemsLeft(int count) {
+        $(By.cssSelector("#todo-count strong")).shouldHave(text(Integer.toString(count)));
+    }
+
+    public static LazyElement startEdit(String oldTaskText, String newTaskText) {
+        Actions actions = new Actions(getDriver());
+        tasks.find(text(oldTaskText)).$(".view>label").shouldBe(visible());
+        actions.doubleClick(tasks.find(text(oldTaskText)).$(".view>label")).perform();
+        return tasks.find(text(oldTaskText)).$(".editing").$(".edit").setValue(newTaskText);
+    }
+
+    public static void edit(String oldTaskText, String newTaskText) {
+        startEdit(oldTaskText, newTaskText).pressEnter();
+    }
+
+//    public static void delete(String taskText) {
+//        tasks.find(text(taskText)).hover();
+//        tasks.find(text(taskText)).$(".destroy").click();
 //    }
+
+    public static void editByClickOutOfTask(String oldTaskText, String newTaskText) {
+        startEdit(oldTaskText, newTaskText);
+        $(By.cssSelector("#header h1")).click();
+    }
+
+    public static void cancelEdit(String oldTaskText, String newTaskText) {
+        startEdit(oldTaskText, newTaskText).sendKeys(Keys.ESCAPE);
+    }
+
+    public static void clearCompleted() {
+        $(By.cssSelector("#clear-completed")).click();
+    }
 
     public static void toggleAll() {
         $(By.cssSelector("#toggle-all")).click();

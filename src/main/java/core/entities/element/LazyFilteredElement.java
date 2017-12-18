@@ -3,6 +3,10 @@ package core.entities.element;
 import core.conditions.Condition;
 import core.entities.collection.LazyCollection;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
+import static core.ConciseAPI.getDriver;
+import static core.conditions.ElementConditions.visible;
 
 public class LazyFilteredElement extends AbstractLazyElement {
 
@@ -32,4 +36,5 @@ public class LazyFilteredElement extends AbstractLazyElement {
         }
         return entity;
     }
+
 }
