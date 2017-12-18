@@ -6,8 +6,8 @@ import org.openqa.selenium.WebElement;
 
 public class Text extends AbstractCondition<WebElement> {
 
-    private String expectedText;
-    private String actualText;
+    protected String expectedText;
+    protected String actualText;
 
     public Text(String expectedText) {
         this.expectedText = expectedText;
