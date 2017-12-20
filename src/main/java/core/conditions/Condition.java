@@ -7,5 +7,7 @@ public interface Condition<T> {
 
     T apply(LazyEntity<T> lazyEntity);
 
+    boolean check (T entity);
+
 
 }

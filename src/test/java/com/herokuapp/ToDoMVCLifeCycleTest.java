@@ -37,10 +37,6 @@ public class ToDoMVCLifeCycleTest extends BaseTest {
 
         filterAll();
         assertTasks("1");
-//        tasks.shouldHave(size(2));
-//        for (LazyElement element : tasks) {
-//            System.out.println(element.getText());
-//        }
 
     }
 

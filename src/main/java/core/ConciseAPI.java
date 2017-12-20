@@ -1,9 +1,9 @@
 package core;
 
 
-import core.entities.collection.LazyCollection;
+import core.entities.LazyCollection;
 import core.entities.collection.LazyWebDriverCollection;
-import core.entities.element.LazyElement;
+import core.entities.LazyElement;
 import core.entities.element.LazyWebDriverElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -40,6 +40,10 @@ public class ConciseAPI {
 
     public static LazyElement $(By locator) {
         return new LazyWebDriverElement(locator);
+    }
+
+    public static LazyElement $(String cssSelector) {
+        return new LazyWebDriverElement(By.cssSelector(cssSelector));
     }
 
     public static LazyCollection $$(By locator) {

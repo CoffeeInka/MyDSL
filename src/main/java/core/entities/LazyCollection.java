@@ -1,9 +1,7 @@
-package core.entities.collection;
+package core.entities;
 
 
 import core.conditions.Condition;
-import core.entities.LazyEntity;
-import core.entities.element.LazyElement;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;

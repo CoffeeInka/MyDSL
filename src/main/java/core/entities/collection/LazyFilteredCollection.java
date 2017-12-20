@@ -1,7 +1,7 @@
 package core.entities.collection;
 
 import core.conditions.Condition;
-import core.entities.element.LazyElement;
+import core.entities.LazyCollection;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -9,28 +9,37 @@ import java.util.List;
 
 public class LazyFilteredCollection extends AbstractLazyCollection{
 
-    LazyCollection collection;
+    private LazyCollection parentCollection;
 
-    Condition<WebElement> condition;
+    private Condition<WebElement> condition;
 
-    public LazyFilteredCollection(LazyCollection collection, Condition<WebElement> condition) {
-        this.collection = collection;
+    public LazyFilteredCollection(LazyCollection parentCollection, Condition<WebElement> condition) {
+        this.parentCollection = parentCollection;
         this.condition = condition;
     }
+
+//    @Override
+//    public List<WebElement> getWrappedEntity() {
+//        List<WebElement> list = new ArrayList<>();
+//        for (LazyElement element:parentCollection) {
+//           if(element.is(condition)){
+//            list.add(element.getWrappedEntity());
+//           }
+//        } return list;
+//    }
 
     @Override
     public List<WebElement> getWrappedEntity() {
         List<WebElement> list = new ArrayList<>();
-        for (LazyElement element:collection) {
-           if(element.is(condition)){
-            list.add(element.getWrappedEntity());
-           }
+        for (WebElement element: parentCollection.getWrappedEntity()) {
+            if(condition.check(element)){
+                list.add(element);
+            }
         } return list;
     }
 
     @Override
     public String toString() {
-        return "Collection " + collection +
-                " filtered by condition " + condition.getClass().getSimpleName();
+        return parentCollection.toString() + " filter(" + condition.getClass().getSimpleName() + ")";
     }
 }

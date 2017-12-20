@@ -1,8 +1,7 @@
-package core.entities.element;
+package core.entities;
 
 
 import core.conditions.Condition;
-import core.entities.LazyEntity;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -25,6 +24,10 @@ public interface LazyElement extends LazyEntity<WebElement>, WebElement {
     void hover(LazyElement element);
 
     boolean is(Condition<WebElement> condition);
+
+    LazyCollection findAll(By innerLocator);
+
+    LazyCollection findAll(String innerCssSelector);
 
 //    void hover();
 }

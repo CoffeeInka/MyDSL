@@ -21,6 +21,6 @@ public class LazyWebDriverElement extends AbstractLazyElement {
 
     @Override
     public String toString() {
-        return "Found by locator " + locator;
+        return locator.toString();
     }
 }

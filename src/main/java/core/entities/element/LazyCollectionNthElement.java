@@ -1,12 +1,12 @@
 package core.entities.element;
 
-import core.entities.collection.LazyCollection;
+import core.entities.LazyCollection;
 import org.openqa.selenium.WebElement;
 
 public class LazyCollectionNthElement extends AbstractLazyElement {
 
-    LazyCollection collection;
-    int index;
+    private LazyCollection collection;
+    private int index;
 
     public LazyCollectionNthElement(LazyCollection collection, int index) {
         this.collection = collection;
@@ -25,6 +25,6 @@ public class LazyCollectionNthElement extends AbstractLazyElement {
 
     @Override
     public String toString() {
-        return " Wrapped nth element " + collection.getWrappedEntity().get(index);
+        return " Wrapped nth element " + collection.toString() + "[" + index + "]";
     }
 }

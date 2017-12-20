@@ -1,19 +1,14 @@
 package core.conditions.collection;
 
-import core.conditions.AbstractCondition;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class TextsOf extends AbstractCondition<List<WebElement>> {
+public class ExactTexts extends TextsOf {
 
-    protected String[] expectedTexts;
-    protected List<String> actualTexts;
-
-    public TextsOf(String... expectedTexts) {
-        this.expectedTexts = expectedTexts;
+    public ExactTexts(String... expectedTexts) {
+        super(expectedTexts);
     }
 
     @Override
@@ -29,24 +24,11 @@ public class TextsOf extends AbstractCondition<List<WebElement>> {
             return false;
         }
         for (int i = 0; i < expectedTexts.length; i++) {
-            if (!elements.get(i).getText().contains(expectedTexts[i])) {
+            if (!elements.get(i).getText().equals(expectedTexts[i])) {
                 return false;
             }
         }
         return true;
     }
 
-    @Override
-    public String expected() {
-        return Arrays.toString(expectedTexts);
-    }
-
-    @Override
-    public String actual() {
-        String actual = "";
-        for (String s : actualTexts) {
-            actual += s + "\t";
-        }
-        return actual;
-    }
 }

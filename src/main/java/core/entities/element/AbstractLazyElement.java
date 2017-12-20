@@ -2,6 +2,9 @@ package core.entities.element;
 
 
 import core.conditions.Condition;
+import core.entities.LazyCollection;
+import core.entities.LazyElement;
+import core.entities.collection.LazyElementFullCollection;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 
@@ -45,11 +48,19 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     public LazyElement $(By locator){
-        return new LazyInnerElement(this, locator);
+        return new LazyElementInnerElement(this, locator);
     }
 
     public LazyElement $(String innerSelector){
-        return new LazyInnerElement(this, innerSelector);
+        return new LazyElementInnerElement(this, By.cssSelector(innerSelector));
+    }
+
+    public LazyCollection findAll(By innerLocator){
+        return new LazyElementFullCollection(this, innerLocator);
+    }
+
+    public LazyCollection findAll(String innerCssSelector){
+        return new LazyElementFullCollection(this, By.cssSelector(innerCssSelector));
     }
 
     @Override
@@ -163,7 +174,6 @@ public abstract class AbstractLazyElement implements LazyElement {
 
     @Override
     public String getCssValue(String s) {
-        this.shouldBe(visible());
         return getWrappedEntity().getCssValue(s);
     }
 

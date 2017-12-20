@@ -1,7 +1,7 @@
 package com.herokuapp.pages;
 
-import core.entities.collection.LazyCollection;
-import core.entities.element.LazyElement;
+import core.entities.LazyCollection;
+import core.entities.LazyElement;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -14,6 +14,8 @@ import static core.conditions.CollectionConditions.size;
 import static core.conditions.CollectionConditions.texts;
 import static core.conditions.ElementConditions.text;
 import static core.conditions.ElementConditions.visible;
+import static core.conditions.custom.CustomConditions.jsReturnedTrue;
+import static core.conditions.custom.CustomConditions.waitFor;
 
 public class ToDoMVC {
 
@@ -118,6 +120,11 @@ public class ToDoMVC {
         String jsCommand = "localStorage.setItem(\"todos-troopjs\", '[" + StringUtils.join(tasks, ",") + "]')";
         System.out.println(jsCommand);
         executeJavaScript(jsCommand);
+        waitFor(jsReturnedTrue(
+                "return " +
+                        "$._data($('#new-todo').get(0), 'events').hasOwnProperty('keyup')&& "+
+                        "$._data($('#toggle-all').get(0), 'events').hasOwnProperty('change') && " +
+                        "$._data($('#clear-completed').get(0), 'events').hasOwnProperty('click')"));
         refresh();
     }
 

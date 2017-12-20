@@ -4,8 +4,6 @@ import org.openqa.selenium.WebElement;
 
 public class ExactText extends Text {
 
-    private String actualText;
-
     public ExactText(String expectedText) {
         super(expectedText);
     }
