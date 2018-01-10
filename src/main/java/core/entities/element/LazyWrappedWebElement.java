@@ -16,7 +16,7 @@ public class LazyWrappedWebElement extends AbstractLazyElement {
     }
 
     @Override
-    public WebElement getWrappedEntity() {
+    public WebElement fetchWrappedEntity() {
         return this.element;
     }
 

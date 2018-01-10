@@ -26,7 +26,7 @@ public class LazyElementInnerElement extends AbstractLazyElement {
     }
 
     @Override
-    public WebElement getWrappedEntity() {
+    public WebElement fetchWrappedEntity() {
         return parentElement.getWrappedEntity() == null ? null : parentElement.getWrappedEntity().findElement(By.cssSelector(innerSelector));
     }
 

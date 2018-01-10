@@ -1,6 +1,7 @@
 package core.conditions;
 
 
+import core.exceptions.WebDriverAssertionException;
 import core.entities.LazyEntity;
 
 public abstract class AbstractCondition<T> implements Condition<T>, DescribesResult {
@@ -10,10 +11,11 @@ public abstract class AbstractCondition<T> implements Condition<T>, DescribesRes
     public T apply(LazyEntity<T> lazyEntity) {
         this.lazyEntity = lazyEntity;
         T entity = lazyEntity.getWrappedEntity();
-        if (check(entity)) {
-            return entity;
-        }
-        return null;
+        if(entity != null) {
+            if (check(entity)) {
+                return entity;
+            }
+        } throw new WebDriverAssertionException();
     }
 
     public abstract boolean check(T entity);

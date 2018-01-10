@@ -15,7 +15,7 @@ public class LazyWebDriverElement extends AbstractLazyElement {
     }
 
     @Override
-    public WebElement getWrappedEntity() {
+    public WebElement fetchWrappedEntity() {
         return getDriver().findElement(locator);
     }
 

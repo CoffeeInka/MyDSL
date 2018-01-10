@@ -1,6 +1,7 @@
 package core.entities.element;
 
 
+import core.exceptions.ElementNotFoundException;
 import core.conditions.Condition;
 import core.entities.LazyCollection;
 import core.entities.LazyElement;
@@ -16,6 +17,15 @@ import static core.conditions.ElementConditions.present;
 import static core.conditions.ElementConditions.visible;
 
 public abstract class AbstractLazyElement implements LazyElement {
+
+    public abstract WebElement fetchWrappedEntity();
+
+    public WebElement getWrappedEntity(){
+        if(fetchWrappedEntity()==null){
+            throw new ElementNotFoundException();
+        }
+        return fetchWrappedEntity();
+    }
 
     public String identity() {
         return "Element";

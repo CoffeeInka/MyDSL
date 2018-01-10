@@ -24,7 +24,7 @@ public class LazyCollectionFoundByConditionElement extends AbstractLazyElement {
     }
 
     @Override
-    public WebElement getWrappedEntity() {
+    public WebElement fetchWrappedEntity() {
         WebElement element = null;
         List<WebElement>collection = parentCollection.getWrappedEntity();
         for (WebElement item : collection) {

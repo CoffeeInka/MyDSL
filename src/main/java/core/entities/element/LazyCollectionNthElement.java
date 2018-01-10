@@ -14,11 +14,11 @@ public class LazyCollectionNthElement extends AbstractLazyElement {
     }
 
     @Override
-    public WebElement getWrappedEntity() {
+    public WebElement fetchWrappedEntity() {
         try {
             return collection.getWrappedEntity().get(index);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Index out of bounds exception occurred");
+            throw new LazyСollectionIndexOutOfBoundsException();
         }
         return null;
     }

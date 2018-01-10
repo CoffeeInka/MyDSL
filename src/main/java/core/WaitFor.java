@@ -27,21 +27,14 @@ public class WaitFor<T> {
         Throwable lastException;
         while (true) {
             try {
-                //V value = condition.apply(locator);
                 T value = condition.apply(lazyEntity);
                 if (value != null) {
                     return value;
                 }
-                // Clear the last exception; if another retry or timeout exception would
-                // be caused by a false or null value, the last exception is not the
-                // cause of the timeout.
                 lastException = null;
             } catch (Throwable e) {
                 lastException = e;
-//                lastException = propagateIfNotIgnored(e);
             }
-            // Check the timeout after evaluating the function to ensure conditions
-            // with a zero timeout can succeed.
             if (System.currentTimeMillis() > end) {
                 String timeoutMessage = String.format(
                         "Expected condition failed: %s (tried for %d second(s) with %s interval in millis)",
