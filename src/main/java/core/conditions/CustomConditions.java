@@ -1,4 +1,4 @@
-package core.conditions.custom;
+package core.conditions;
 
 import core.Configuration;
 import org.openqa.selenium.JavascriptExecutor;
@@ -33,9 +33,5 @@ public class CustomConditions {
                 );
             }
         };
-    }
-
-    public static <V> V waitFor(ExpectedCondition<V> condition) {
-        return new WebDriverWait(getDriver(), Configuration.timeout / 1000).until(condition);
     }
 }

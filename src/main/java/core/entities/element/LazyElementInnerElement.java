@@ -8,26 +8,24 @@ public class LazyElementInnerElement extends AbstractLazyElement {
 
     private LazyElement parentElement;
 
-    private By locator;
+    private By innerLocator;
 
-    private String innerSelector;
-
-    public LazyElementInnerElement(LazyElement parentElement, By locator) {
+    public LazyElementInnerElement(LazyElement parentElement, By innerLocator) {
 
         this.parentElement = parentElement;
 
-        this.locator = locator;
+        this.innerLocator = innerLocator;
 
     }
 
     @Override
     public String toString() {
-        return parentElement.toString() + " find(" + innerSelector + ")";
+        return parentElement.toString() + " find(" + innerLocator + ")";
     }
 
     @Override
     public WebElement fetchWrappedEntity() {
-        return parentElement.getWrappedEntity() == null ? null : parentElement.getWrappedEntity().findElement(By.cssSelector(innerSelector));
+        return parentElement.getWrappedEntity().findElement(innerLocator);
     }
 
 

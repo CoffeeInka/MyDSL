@@ -6,13 +6,13 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class LazyElementFullCollection extends AbstractLazyCollection {
+public class LazyElementInnerCollection extends AbstractLazyCollection {
 
     private LazyElement element;
 
     private By innerLocator;
 
-    public LazyElementFullCollection(LazyElement element, By innerLocator) {
+    public LazyElementInnerCollection(LazyElement element, By innerLocator) {
 
         this.element = element;
 

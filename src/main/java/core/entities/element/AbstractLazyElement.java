@@ -5,7 +5,7 @@ import core.exceptions.ElementNotFoundException;
 import core.conditions.Condition;
 import core.entities.LazyCollection;
 import core.entities.LazyElement;
-import core.entities.collection.LazyElementFullCollection;
+import core.entities.collection.LazyElementInnerCollection;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 
@@ -20,11 +20,12 @@ public abstract class AbstractLazyElement implements LazyElement {
 
     public abstract WebElement fetchWrappedEntity();
 
-    public WebElement getWrappedEntity(){
-        if(fetchWrappedEntity()==null){
-            throw new ElementNotFoundException();
+    public WebElement getWrappedEntity() {
+        WebElement wrappedEntity = fetchWrappedEntity();
+        if (wrappedEntity == null) {
+            throw new ElementNotFoundException(toString());
         }
-        return fetchWrappedEntity();
+        return wrappedEntity;
     }
 
     public String identity() {
@@ -45,141 +46,139 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     public LazyElement setValue(String value) {
-        this.shouldBe(visible());
-        getWrappedEntity().clear();
+        this.shouldBe(visible())
+                .getWrappedEntity().clear();
         getWrappedEntity().sendKeys(value);
         return this;
     }
 
     public LazyElement pressEnter() {
-        this.shouldBe(visible());
-        getWrappedEntity().sendKeys(Keys.ENTER);
+        this.shouldBe(visible())
+                .getWrappedEntity().sendKeys(Keys.ENTER);
         return this;
     }
 
-    public LazyElement $(By locator){
+    public LazyElement $(By locator) {
         return new LazyElementInnerElement(this, locator);
     }
 
-    public LazyElement $(String innerSelector){
+    public LazyElement $(String innerSelector) {
         return new LazyElementInnerElement(this, By.cssSelector(innerSelector));
     }
 
-    public LazyCollection findAll(By innerLocator){
-        return new LazyElementFullCollection(this, innerLocator);
+    public LazyCollection findAll(By innerLocator) {
+        return new LazyElementInnerCollection(this, innerLocator);
     }
 
-    public LazyCollection findAll(String innerCssSelector){
-        return new LazyElementFullCollection(this, By.cssSelector(innerCssSelector));
+    public LazyCollection findAll(String innerCssSelector) {
+        return new LazyElementInnerCollection(this, By.cssSelector(innerCssSelector));
     }
 
     @Override
-    public void hover(LazyElement element) {
-        element.shouldBe(visible());
+    public LazyElement hover() {
+        this.shouldBe(visible());
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(element).perform();
+        actions.moveToElement(this).perform();
+        return this;
     }
 
     @Override
     public boolean is(Condition<WebElement> condition) {
         try {
-            if (condition.apply(this) != null) {
-                return true;
-            }
-        } catch (Throwable e) {
-            e.printStackTrace();
+            return condition.check(getWrappedEntity());
+        } catch (WebDriverException e) {
+            return false;
         }
-        return false;
     }
 
     @Override
     public void click() {
-        this.shouldBe(visible());
-        getWrappedEntity().click();
+        this.shouldBe(visible())
+                .getWrappedEntity().click();
     }
 
     @Override
     public void submit() {
-        this.shouldBe(visible());
-        getWrappedEntity().submit();
+        this.shouldBe(visible())
+                .getWrappedEntity().submit();
     }
 
     @Override
     public void sendKeys(CharSequence... charSequences) {
-        this.shouldBe(visible());
-        getWrappedEntity().sendKeys(charSequences);
+        this.shouldBe(visible())
+                .getWrappedEntity().sendKeys(charSequences);
     }
 
     @Override
     public void clear() {
-        this.shouldBe(visible());
-        getWrappedEntity().clear();
+        this.shouldBe(visible())
+                .getWrappedEntity().clear();
     }
 
     @Override
     public String getTagName() {
-        this.shouldBe(present());
-        return getWrappedEntity().getTagName();
+        return this.shouldBe(present())
+                .getWrappedEntity().getTagName();
     }
 
     @Override
     public String getAttribute(String s) {
-        this.shouldBe(present());
-        return getWrappedEntity().getAttribute(s);
+        return this.shouldBe(present())
+                .getWrappedEntity().getAttribute(s);
     }
 
     @Override
     public boolean isSelected() {
-        this.shouldBe(visible());
-        return getWrappedEntity().isSelected();
+        return this.shouldBe(visible())
+                .getWrappedEntity().isSelected();
     }
 
     @Override
     public boolean isEnabled() {
-        this.shouldBe(visible());
-        return getWrappedEntity().isEnabled();
+        return this.shouldBe(visible())
+                .getWrappedEntity().isEnabled();
     }
 
     @Override
     public String getText() {
-        this.shouldBe(visible());
-        return getWrappedEntity().getText();
+        return this.shouldBe(visible())
+                .getWrappedEntity().getText();
     }
 
     @Override
     public List<WebElement> findElements(By by) {
-        this.shouldBe(visible());
-        return getWrappedEntity().findElements(by);
+        return this.shouldBe(visible())
+                .getWrappedEntity().findElements(by);
     }
 
     @Override
     public WebElement findElement(By by) {
-        this.shouldBe(visible());
-        return getWrappedEntity().findElement(by);
+        return this.shouldBe(visible())
+                .getWrappedEntity().findElement(by);
     }
 
     @Override
     public boolean isDisplayed() {
-        this.shouldBe(present());
-        return getWrappedEntity().isDisplayed();
+        return this.shouldBe(present())
+                .getWrappedEntity().isDisplayed();
     }
 
     @Override
     public Point getLocation() {
-        this.shouldBe(visible());
-        return getWrappedEntity().getLocation();
+        return this.shouldBe(visible())
+                .getWrappedEntity().getLocation();
     }
 
     @Override
     public Dimension getSize() {
-        this.shouldBe(visible());
-        return getWrappedEntity().getSize();
+        return this.shouldBe(visible())
+                .getWrappedEntity().getSize();
     }
 
     @Override
     public Rectangle getRect() {
-        this.shouldBe(visible());
-        return getWrappedEntity().getRect();
+        return this.shouldBe(visible())
+                .getWrappedEntity().getRect();
     }
 
     @Override

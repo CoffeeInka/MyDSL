@@ -2,6 +2,7 @@ package core.entities.element;
 
 import core.conditions.Condition;
 import core.entities.LazyCollection;
+import core.exceptions.ElementNotFoundException;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -25,15 +26,15 @@ public class LazyCollectionFoundByConditionElement extends AbstractLazyElement {
 
     @Override
     public WebElement fetchWrappedEntity() {
-        WebElement element = null;
-        List<WebElement>collection = parentCollection.getWrappedEntity();
-        for (WebElement item : collection) {
-            if (condition.check(item)) {
-                element = item;
-                break;
+        List<WebElement> list = parentCollection.getWrappedEntity();
+
+        for (WebElement element : list) {
+            if (condition.check(element)) {
+                return element;
             }
         }
-        return element;
+
+        throw new ElementNotFoundException(toString());
     }
 
 }

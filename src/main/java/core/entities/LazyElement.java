@@ -21,7 +21,7 @@ public interface LazyElement extends LazyEntity<WebElement>, WebElement {
 
     LazyElement $(String innerSelector);
 
-    void hover(LazyElement element);
+    LazyElement hover();
 
     boolean is(Condition<WebElement> condition);
 

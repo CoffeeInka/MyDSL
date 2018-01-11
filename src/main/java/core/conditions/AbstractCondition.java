@@ -11,11 +11,10 @@ public abstract class AbstractCondition<T> implements Condition<T>, DescribesRes
     public T apply(LazyEntity<T> lazyEntity) {
         this.lazyEntity = lazyEntity;
         T entity = lazyEntity.getWrappedEntity();
-        if(entity != null) {
-            if (check(entity)) {
-                return entity;
-            }
-        } throw new WebDriverAssertionException();
+        if (check(entity)) {
+            return entity;
+        }
+        throw new WebDriverAssertionException(toString());
     }
 
     public abstract boolean check(T entity);

@@ -22,28 +22,20 @@ public class WaitFor<T> {
         return until(condition, Configuration.timeout, Configuration.pollingInterval);
     }
 
-    public T until(Condition<T> condition, long timeOutInMillis, long pollingIntervalInMillis) {
-        long end = System.currentTimeMillis() + timeOutInMillis;
-        Throwable lastException;
-        while (true) {
+    public T until(Condition<T> condition, long timeoutMs, long pollingIntervalInMillis) {
+        final long startTime = System.currentTimeMillis();
+        Throwable lastError;
+        do {
             try {
-                T value = condition.apply(lazyEntity);
-                if (value != null) {
-                    return value;
-                }
-                lastException = null;
-            } catch (Throwable e) {
-                lastException = e;
-            }
-            if (System.currentTimeMillis() > end) {
-                String timeoutMessage = String.format(
-                        "Expected condition failed: %s (tried for %d second(s) with %s interval in millis)",
-                        "waiting for " + condition,
-                        timeOutInMillis / 1000, pollingIntervalInMillis);
-                throw new TimeoutException(timeoutMessage, lastException);
+                return condition.apply(lazyEntity);
+            } catch (WebDriverException e) {
+                lastError = e;
             }
             sleep(pollingIntervalInMillis);
-        }
+        } while (System.currentTimeMillis() - startTime < timeoutMs);
+
+        throw new TimeoutException("\nfailed while waiting " + timeoutMs / 1000 + " seconds" +
+                "\nto assert " + condition, lastError);
     }
 
     private void sleep(long timeOutInMillis) {

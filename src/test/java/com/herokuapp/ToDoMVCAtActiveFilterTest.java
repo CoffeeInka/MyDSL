@@ -38,14 +38,6 @@ public class ToDoMVCAtActiveFilterTest extends BaseTest {
     }
 
     @Test
-    public void testDelete() {
-        givenAtActive(ACTIVE, "1");
-
-//        delete("1");
-        assertNoTasks();
-    }
-
-    @Test
     public void testCancelEdit() {
         givenAtActive(ACTIVE, "1", "2");
 

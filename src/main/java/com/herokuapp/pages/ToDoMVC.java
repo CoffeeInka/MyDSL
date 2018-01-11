@@ -14,8 +14,7 @@ import static core.conditions.CollectionConditions.size;
 import static core.conditions.CollectionConditions.texts;
 import static core.conditions.ElementConditions.text;
 import static core.conditions.ElementConditions.visible;
-import static core.conditions.custom.CustomConditions.jsReturnedTrue;
-import static core.conditions.custom.CustomConditions.waitFor;
+import static core.conditions.CustomConditions.jsReturnedTrue;
 
 public class ToDoMVC {
 

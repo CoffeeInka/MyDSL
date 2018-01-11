@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -75,10 +76,8 @@ public class ConciseAPI {
         ((JavascriptExecutor) getDriver()).executeScript(jsCommand);
     }
 
-//    public static void hover(LazyElement element) {
-//        element.shouldBe(visible());
-//        Actions actions = new Actions(getDriver());
-//        actions.moveToElement(element).perform();
-//    }
+    public static <V> V waitFor(ExpectedCondition<V> condition) {
+        return new WebDriverWait(getDriver(), Configuration.timeout / 1000).until(condition);
+    }
 
 }
