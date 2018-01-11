@@ -1,6 +1,8 @@
 package core.entities.element;
 
 
+import core.Command;
+import core.WithWaitFor;
 import core.exceptions.ElementNotFoundException;
 import core.conditions.Condition;
 import core.entities.LazyCollection;
@@ -104,9 +106,17 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     @Override
-    public void sendKeys(CharSequence... charSequences) {
-        this.shouldBe(visible())
-                .getWrappedEntity().sendKeys(charSequences);
+//    public void sendKeys(CharSequence... charSequences) {
+//        this.shouldBe(visible())
+//                .getWrappedEntity().sendKeys(charSequences);
+//    }
+    public void sendKeys(final CharSequence... charSequences) {
+        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                element.sendKeys(charSequences);
+                return element;
+            }
+        });
     }
 
     @Override
