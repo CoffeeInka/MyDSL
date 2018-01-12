@@ -5,16 +5,14 @@ import core.entities.LazyElement;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.interactions.Actions;
 
 import java.util.Arrays;
 
 import static core.ConciseAPI.*;
 import static core.conditions.CollectionConditions.size;
 import static core.conditions.CollectionConditions.texts;
-import static core.conditions.ElementConditions.text;
-import static core.conditions.ElementConditions.visible;
 import static core.conditions.CustomConditions.jsReturnedTrue;
+import static core.conditions.ElementConditions.*;
 
 public class ToDoMVC {
 
@@ -43,21 +41,13 @@ public class ToDoMVC {
         $(By.cssSelector("#todo-count strong")).shouldHave(text(Integer.toString(count)));
     }
 
-    public static LazyElement startEdit(String oldTaskText, String newTaskText) {
-        Actions actions = new Actions(getDriver());
-        tasks.find(text(oldTaskText)).$(".view>label").shouldBe(visible());
-        actions.doubleClick(tasks.find(text(oldTaskText)).$(".view>label")).perform();
-        return tasks.find(text(oldTaskText)).$(".editing").$(".edit").setValue(newTaskText);
-    }
+    public static LazyElement startEdit(String oldText, String newText) {
+        tasks.find(exactText(oldText)).$(".view>label").doubleClick();
+        return tasks.find(cssClass("editing")).find(".edit").setValue(newText);
 
     public static void edit(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText).pressEnter();
     }
-
-//    public static void delete(String taskText) {
-//        tasks.find(text(taskText)).hover();
-//        tasks.find(text(taskText)).$(".destroy").click();
-//    }
 
     public static void editByClickOutOfTask(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText);
@@ -66,6 +56,11 @@ public class ToDoMVC {
 
     public static void cancelEdit(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText).sendKeys(Keys.ESCAPE);
+    }
+
+    public static void delete(String taskText) {
+        tasks.find(text(taskText)).hover();
+        tasks.find(text(taskText)).$(".destroy").click();
     }
 
     public static void clearCompleted() {

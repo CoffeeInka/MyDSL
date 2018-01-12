@@ -61,5 +61,6 @@ public abstract class AbstractLazyCollection implements LazyCollection {
     public LazyElement find(Condition<WebElement> condition) {
         return new LazyCollectionFoundByConditionElement(this, condition);
     }
+
 }
 

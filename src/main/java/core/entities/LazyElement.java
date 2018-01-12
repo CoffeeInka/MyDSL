@@ -29,5 +29,7 @@ public interface LazyElement extends LazyEntity<WebElement>, WebElement {
 
     LazyCollection findAll(String innerCssSelector);
 
+    LazyElement doubleClick();
+
 }
 

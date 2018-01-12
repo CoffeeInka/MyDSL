@@ -18,12 +18,12 @@ public class WithWaitFor {
         this.condition = condition;
     }
 
-    public void run(Command command) {
+    public T run(Command command) {
         try {
-            command.execute(lazyElement);
+            return command.execute(lazyElement);
         } catch (WebDriverException e) {
             waitFor(lazyElement).until(condition);
-            command.execute(lazyElement);
+            return command.execute(lazyElement);
         }
     }
 }

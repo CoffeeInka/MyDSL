@@ -80,7 +80,7 @@ public abstract class AbstractLazyElement implements LazyElement {
     public LazyElement hover() {
         this.shouldBe(visible());
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(this).perform();
+        actions.moveToElement(this.getWrappedEntity()).perform();
         return this;
     }
 
@@ -97,6 +97,14 @@ public abstract class AbstractLazyElement implements LazyElement {
     public void click() {
         this.shouldBe(visible())
                 .getWrappedEntity().click();
+    }
+
+    @Override
+    public LazyElement doubleClick() {
+        this.shouldBe(visible());
+        Actions actions = new Actions(getDriver());
+        actions.doubleClick(this.getWrappedEntity()).perform();
+        return this;
     }
 
     @Override
