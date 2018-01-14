@@ -10,6 +10,7 @@ import core.entities.LazyElement;
 import core.entities.collection.LazyElementInnerCollection;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.w3c.dom.css.Rect;
 
 import java.util.List;
 
@@ -54,10 +55,18 @@ public abstract class AbstractLazyElement implements LazyElement {
         return this;
     }
 
+//    public LazyElement pressEnter() {
+//        this.shouldBe(visible())
+//                .getWrappedEntity().sendKeys(Keys.ENTER);
+//        return this;
+//    }
     public LazyElement pressEnter() {
-        this.shouldBe(visible())
-                .getWrappedEntity().sendKeys(Keys.ENTER);
-        return this;
+        return new WithWaitFor(this, visible()).run(new Command<LazyElement>() {
+            public LazyElement execute(WebElement element) {
+                 element.sendKeys(Keys.ENTER);
+                return this;
+            }
+        });
     }
 
     public LazyElement $(By locator) {
@@ -95,8 +104,12 @@ public abstract class AbstractLazyElement implements LazyElement {
 
     @Override
     public void click() {
-        this.shouldBe(visible())
-                .getWrappedEntity().click();
+        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                element.click();
+                return element;
+            }
+        });
     }
 
     @Override
@@ -109,15 +122,15 @@ public abstract class AbstractLazyElement implements LazyElement {
 
     @Override
     public void submit() {
-        this.shouldBe(visible())
-                .getWrappedEntity().submit();
+        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                element.submit();
+                return element;
+            }
+        });
     }
 
     @Override
-//    public void sendKeys(CharSequence... charSequences) {
-//        this.shouldBe(visible())
-//                .getWrappedEntity().sendKeys(charSequences);
-//    }
     public void sendKeys(final CharSequence... charSequences) {
         new WithWaitFor(this, visible()).run(new Command<WebElement>() {
             public WebElement execute(WebElement element) {
@@ -129,38 +142,61 @@ public abstract class AbstractLazyElement implements LazyElement {
 
     @Override
     public void clear() {
-        this.shouldBe(visible())
-                .getWrappedEntity().clear();
+        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                element.clear();
+                return element;
+            }
+        });
     }
 
     @Override
     public String getTagName() {
-        return this.shouldBe(present())
-                .getWrappedEntity().getTagName();
+        return new WithWaitFor(this, present()).run(new Command<String>() {
+            public String execute(WebElement element) {
+                return element.getTagName();
+            }
+        });
     }
 
     @Override
-    public String getAttribute(String s) {
-        return this.shouldBe(present())
-                .getWrappedEntity().getAttribute(s);
+    public String getAttribute(String name) {
+        return new WithWaitFor(this, present()).run(new Command<String>() {
+            public String execute(WebElement element) {
+                return element.getAttribute(name);
+            }
+        });
     }
 
     @Override
     public boolean isSelected() {
-        return this.shouldBe(visible())
-                .getWrappedEntity().isSelected();
+        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                element.isSelected();
+                return element;
+            }
+        });
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.shouldBe(visible())
-                .getWrappedEntity().isEnabled();
+        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                element.isEnabled();
+                return element;
+            }
+        });
+        return true;
     }
 
     @Override
     public String getText() {
-        return this.shouldBe(visible())
-                .getWrappedEntity().getText();
+        return new WithWaitFor(this, visible()).run(new Command<String>() {
+            public String execute(WebElement element) {
+                return element.getText();
+            }
+        });
     }
 
     @Override
@@ -177,26 +213,40 @@ public abstract class AbstractLazyElement implements LazyElement {
 
     @Override
     public boolean isDisplayed() {
-        return this.shouldBe(present())
-                .getWrappedEntity().isDisplayed();
+        new WithWaitFor(this, present()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                element.isDisplayed();
+                return element;
+            }
+        });
+        return true;
     }
 
     @Override
     public Point getLocation() {
-        return this.shouldBe(visible())
-                .getWrappedEntity().getLocation();
+        return new WithWaitFor(this, visible()).run(new Command<Point>() {
+            public Point execute(WebElement element) {
+                return element.getLocation();
+            }
+        });
     }
 
     @Override
     public Dimension getSize() {
-        return this.shouldBe(visible())
-                .getWrappedEntity().getSize();
+        return new WithWaitFor(this, visible()).run(new Command<Dimension>() {
+            public Dimension execute(WebElement element) {
+                return element.getSize();
+            }
+        });
     }
 
     @Override
     public Rectangle getRect() {
-        return this.shouldBe(visible())
-                .getWrappedEntity().getRect();
+        return new WithWaitFor(this, visible()).run(new Command<Rectangle>() {
+            public Rectangle execute(WebElement element) {
+                return element.getRect();
+            }
+        });
     }
 
     @Override

@@ -43,7 +43,8 @@ public class ToDoMVC {
 
     public static LazyElement startEdit(String oldText, String newText) {
         tasks.find(exactText(oldText)).$(".view>label").doubleClick();
-        return tasks.find(cssClass("editing")).find(".edit").setValue(newText);
+        return tasks.find(cssClass("editing")).$(".edit").setValue(newText);
+    }
 
     public static void edit(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText).pressEnter();

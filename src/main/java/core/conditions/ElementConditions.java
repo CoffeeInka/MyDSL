@@ -1,10 +1,7 @@
 package core.conditions;
 
 
-import core.conditions.element.ExactText;
-import core.conditions.element.Present;
-import core.conditions.element.Text;
-import core.conditions.element.Visible;
+import core.conditions.element.*;
 import org.openqa.selenium.WebElement;
 
 public class ElementConditions {
@@ -24,5 +21,7 @@ public class ElementConditions {
     public static Condition<WebElement> present() {
         return new Present();
     }
+
+    public static Condition<WebElement> cssClass(String className) {return  new CssClass(className);}
 
 }

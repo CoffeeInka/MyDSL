@@ -18,7 +18,7 @@ public class WithWaitFor {
         this.condition = condition;
     }
 
-    public T run(Command command) {
+    public <V> V run(Command <V> command) {
         try {
             return command.execute(lazyElement);
         } catch (WebDriverException e) {

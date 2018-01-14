@@ -27,33 +27,33 @@ public class ToDoMVCAtActiveFilterTest extends BaseTest {
         assertTasks("3");
         assertItemsLeft(1);
     }
-//
-//    @Test
-//    public void testEdit() {
-//        givenAtActive(ACTIVE, "1", "2");
-//
-//        edit("2", "2 edited");
-//        assertTasks("1", "2 edited");
-//        assertItemsLeft(2);
-//    }
-//
-//    @Test
-//    public void testCancelEdit() {
-//        givenAtActive(ACTIVE, "1", "2");
-//
-//        cancelEdit("2", "2 edit canceled");
-//        assertTasks("1", "2");
-//        assertItemsLeft(2);
-//    }
-//
-//    @Test
-//    public void testEditByClickOutOfTask() {
-//        givenAtActive(ACTIVE, "1", "2");
-//
-//        editByClickOutOfTask("2", "2 edited");
-//        assertTasks("1", "2 edited");
-//        assertItemsLeft(2);
-//    }
+
+    @Test
+    public void testEdit() {
+        givenAtActive(ACTIVE, "1", "2");
+
+        edit("2", "2 edited");
+        assertTasks("1", "2 edited");
+        assertItemsLeft(2);
+    }
+
+    @Test
+    public void testCancelEdit() {
+        givenAtActive(ACTIVE, "1", "2");
+
+        cancelEdit("2", "2 edit canceled");
+        assertTasks("1", "2");
+        assertItemsLeft(2);
+    }
+
+    @Test
+    public void testEditByClickOutOfTask() {
+        givenAtActive(ACTIVE, "1", "2");
+
+        editByClickOutOfTask("2", "2 edited");
+        assertTasks("1", "2 edited");
+        assertItemsLeft(2);
+    }
 
     @Test
     public void testDeleteTask(){
