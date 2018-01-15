@@ -18,37 +18,37 @@ import static core.WaitFor.waitFor;
 public abstract class AbstractLazyCollection implements LazyCollection {
 
     @Override
-    public String identity(){
+    public String identity() {
         return "Collection";
     }
 
     @Override
-    public LazyCollection should(Condition<List<WebElement>>  condition) {
-          waitFor(this).until(condition);
-          return this;
+    public LazyCollection should(Condition<List<WebElement>> condition) {
+        waitFor(this).until(condition);
+        return this;
     }
 
     @Override
-    public LazyCollection shouldBe(Condition<List<WebElement>>  condition) {
+    public LazyCollection shouldBe(Condition<List<WebElement>> condition) {
         return this.should(condition);
     }
 
     @Override
-    public LazyCollection shouldHave(Condition<List<WebElement>>  condition) {
+    public LazyCollection shouldHave(Condition<List<WebElement>> condition) {
         return this.should(condition);
     }
 
     @Override
-    public Iterator<LazyElement> iterator(){
+    public Iterator<LazyElement> iterator() {
         List<LazyElement> list = new ArrayList<>();
-        for (WebElement element:this.getWrappedEntity()) {
+        for (WebElement element : this.getWrappedEntity()) {
             list.add(new LazyWrappedWebElement(element));
         }
         return list.iterator();
     }
 
     @Override
-    public LazyElement get(int index){
+    public LazyElement get(int index) {
         return new LazyCollectionNthElement(this, index);
     }
 

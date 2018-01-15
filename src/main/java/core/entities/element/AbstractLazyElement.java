@@ -9,12 +9,10 @@ import core.entities.LazyCollection;
 import core.entities.LazyElement;
 import core.entities.collection.LazyElementInnerCollection;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.w3c.dom.css.Rect;
 
 import java.util.List;
 
-import static core.ConciseAPI.getDriver;
+import static com.herokuapp.pages.ToDoMVC.actions;
 import static core.WaitFor.waitFor;
 import static core.conditions.ElementConditions.present;
 import static core.conditions.ElementConditions.visible;
@@ -35,40 +33,6 @@ public abstract class AbstractLazyElement implements LazyElement {
         return "Element";
     }
 
-    public LazyElement should(Condition<WebElement> condition) {
-        waitFor(this).until(condition);
-        return this;
-    }
-
-    public LazyElement shouldBe(Condition<WebElement> condition) {
-        return this.should(condition);
-    }
-
-    public LazyElement shouldHave(Condition<WebElement> condition) {
-        return this.should(condition);
-    }
-
-    public LazyElement setValue(String value) {
-        this.shouldBe(visible())
-                .getWrappedEntity().clear();
-        getWrappedEntity().sendKeys(value);
-        return this;
-    }
-
-//    public LazyElement pressEnter() {
-//        this.shouldBe(visible())
-//                .getWrappedEntity().sendKeys(Keys.ENTER);
-//        return this;
-//    }
-    public LazyElement pressEnter() {
-        return new WithWaitFor(this, visible()).run(new Command<LazyElement>() {
-            public LazyElement execute(WebElement element) {
-                 element.sendKeys(Keys.ENTER);
-                return this;
-            }
-        });
-    }
-
     public LazyElement $(By locator) {
         return new LazyElementInnerElement(this, locator);
     }
@@ -85,12 +49,17 @@ public abstract class AbstractLazyElement implements LazyElement {
         return new LazyElementInnerCollection(this, By.cssSelector(innerCssSelector));
     }
 
-    @Override
-    public LazyElement hover() {
-        this.shouldBe(visible());
-        Actions actions = new Actions(getDriver());
-        actions.moveToElement(this.getWrappedEntity()).perform();
+    public LazyElement should(Condition<WebElement> condition) {
+        waitFor(this).until(condition);
         return this;
+    }
+
+    public LazyElement shouldBe(Condition<WebElement> condition) {
+        return this.should(condition);
+    }
+
+    public LazyElement shouldHave(Condition<WebElement> condition) {
+        return this.should(condition);
     }
 
     @Override
@@ -103,6 +72,51 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     @Override
+    public LazyElement setValue(String value) {
+        return new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                element.clear();
+                element.sendKeys(value);
+                return element;
+            }
+        });
+        return this;
+    }
+
+    @Override
+    public LazyElement pressEnter() {
+        return new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                element.sendKeys(Keys.ENTER);
+                return element;
+            }
+        });
+        return this;
+    }
+
+    @Override
+    public LazyElement doubleClick() {
+        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                actions().doubleClick(element).perform();
+                return element;
+            }
+        });
+        return this;
+    }
+
+    @Override
+    public LazyElement hover() {
+        return new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                actions().moveToElement(this.getWrappedEntity()).perform();
+                return element;
+            }
+        });
+        return this;
+    }
+
+    @Override
     public void click() {
         new WithWaitFor(this, visible()).run(new Command<WebElement>() {
             public WebElement execute(WebElement element) {
@@ -110,14 +124,6 @@ public abstract class AbstractLazyElement implements LazyElement {
                 return element;
             }
         });
-    }
-
-    @Override
-    public LazyElement doubleClick() {
-        this.shouldBe(visible());
-        Actions actions = new Actions(getDriver());
-        actions.doubleClick(this.getWrappedEntity()).perform();
-        return this;
     }
 
     @Override
@@ -169,8 +175,17 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     @Override
+    public String getText() {
+        return new WithWaitFor(this, visible()).run(new Command<String>() {
+            public String execute(WebElement element) {
+                return element.getText();
+            }
+        });
+    }
+
+    @Override
     public boolean isSelected() {
-        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+        return new WithWaitFor(this, visible()).run(new Command<WebElement>() {
             public WebElement execute(WebElement element) {
                 element.isSelected();
                 return element;
@@ -188,27 +203,6 @@ public abstract class AbstractLazyElement implements LazyElement {
             }
         });
         return true;
-    }
-
-    @Override
-    public String getText() {
-        return new WithWaitFor(this, visible()).run(new Command<String>() {
-            public String execute(WebElement element) {
-                return element.getText();
-            }
-        });
-    }
-
-    @Override
-    public List<WebElement> findElements(By by) {
-        return this.shouldBe(visible())
-                .getWrappedEntity().findElements(by);
-    }
-
-    @Override
-    public WebElement findElement(By by) {
-        return this.shouldBe(visible())
-                .getWrappedEntity().findElement(by);
     }
 
     @Override
@@ -257,6 +251,25 @@ public abstract class AbstractLazyElement implements LazyElement {
     @Override
     public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {
         return getWrappedEntity().getScreenshotAs(outputType);
+    }
+
+    @Override
+    public List<WebElement> findElements(By by) {
+        return new WithWaitFor(this, visible()).run(new Command<List<WebElement>>() {
+            public List<WebElement> execute(WebElement element) {
+                return element.findElements(by);
+            }
+        });
+    }
+
+
+    @Override
+    public WebElement findElement(By by) {
+        return new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            public WebElement execute(WebElement element) {
+                return element.findElement(by);
+            }
+        });
     }
 
 }

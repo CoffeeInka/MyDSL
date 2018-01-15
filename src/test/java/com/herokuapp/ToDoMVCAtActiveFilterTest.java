@@ -56,7 +56,7 @@ public class ToDoMVCAtActiveFilterTest extends BaseTest {
     }
 
     @Test
-    public void testDeleteTask(){
+    public void testDeleteTask() {
         givenAtActive(aTask(ACTIVE, "1"), aTask(ACTIVE, "2"));
 
         delete("1");

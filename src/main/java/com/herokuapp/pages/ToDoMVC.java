@@ -5,6 +5,7 @@ import core.entities.LazyElement;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.Arrays;
 
@@ -117,7 +118,7 @@ public class ToDoMVC {
         executeJavaScript(jsCommand);
         waitFor(jsReturnedTrue(
                 "return " +
-                        "$._data($('#new-todo').get(0), 'events').hasOwnProperty('keyup')&& "+
+                        "$._data($('#new-todo').get(0), 'events').hasOwnProperty('keyup')&& " +
                         "$._data($('#toggle-all').get(0), 'events').hasOwnProperty('change') && " +
                         "$._data($('#clear-completed').get(0), 'events').hasOwnProperty('click')"));
         refresh();
@@ -174,6 +175,11 @@ public class ToDoMVC {
         return Arrays.stream(taskTexts).map(taskText ->
                 aTask(status, taskText)).
                 toArray(size -> new Task[size]);
+    }
+
+    public static Actions actions() {
+        Actions actions = new Actions(getDriver());
+        return actions;
     }
 
 

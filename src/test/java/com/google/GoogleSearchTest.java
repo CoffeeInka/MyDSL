@@ -4,6 +4,7 @@ import com.google.testconfigs.BaseTest;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
+import static com.google.pages.Google.followLink;
 import static com.google.pages.Google.results;
 import static com.google.pages.Google.search;
 import static core.conditions.CollectionConditions.size;
@@ -23,11 +24,9 @@ public class GoogleSearchTest extends BaseTest {
         results.get(0).$(By.cssSelector(".r>a")).click();
         results.get(0).$(".r>a").click();
 
-
-//
-//        followLink(0);
-//        $(By.cssSelector("#mainContent>h2")).shouldHave(text("What is Selenium?"));
-//        assertUrl("http://www.seleniumhq.org/");
+        followLink(0);
+        $(By.cssSelector("#mainContent>h2")).shouldHave(text("What is Selenium?"));
+        assertUrl("http://www.seleniumhq.org/");
     }
 
 }

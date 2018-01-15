@@ -14,7 +14,6 @@ public class BaseTest extends ConciseAPI {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("marionette", false);
         setDriver(new FirefoxDriver(capabilities));
-//        getDriver().manage().window().maximize();
     }
 
     @After

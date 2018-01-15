@@ -3,7 +3,7 @@ package core.conditions.element;
 import core.conditions.AbstractCondition;
 import org.openqa.selenium.WebElement;
 
-public class Present extends AbstractCondition<WebElement>{
+public class Present extends AbstractCondition<WebElement> {
 
     private boolean result;
 

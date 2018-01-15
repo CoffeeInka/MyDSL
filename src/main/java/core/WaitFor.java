@@ -8,13 +8,13 @@ import org.openqa.selenium.WebDriverException;
 
 public class WaitFor<T> {
 
-    private LazyEntity <T> lazyEntity;
+    private LazyEntity<T> lazyEntity;
 
     WaitFor(LazyEntity<T> lazyEntity) {
         this.lazyEntity = lazyEntity;
     }
 
-    public static <V> WaitFor<V> waitFor(LazyEntity <V> lazyEntity) {
+    public static <V> WaitFor<V> waitFor(LazyEntity<V> lazyEntity) {
         return new WaitFor(lazyEntity);
     }
 

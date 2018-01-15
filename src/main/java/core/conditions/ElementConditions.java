@@ -22,6 +22,8 @@ public class ElementConditions {
         return new Present();
     }
 
-    public static Condition<WebElement> cssClass(String className) {return  new CssClass(className);}
+    public static Condition<WebElement> cssClass(String className) {
+        return new CssClass(className);
+    }
 
 }

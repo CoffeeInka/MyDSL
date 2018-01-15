@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public interface LazyCollection extends LazyEntity<List<WebElement>>, Iterable<LazyElement>{
+public interface LazyCollection extends LazyEntity<List<WebElement>>, Iterable<LazyElement> {
 
     LazyCollection should(Condition<List<WebElement>> condition);
 

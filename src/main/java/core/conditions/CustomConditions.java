@@ -1,12 +1,9 @@
 package core.conditions;
 
-import core.Configuration;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static core.ConciseAPI.getDriver;
 
 public class CustomConditions {
 
