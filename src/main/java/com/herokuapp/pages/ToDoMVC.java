@@ -4,7 +4,6 @@ import core.entities.LazyCollection;
 import core.entities.LazyElement;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 
 import java.util.Arrays;
@@ -57,7 +56,7 @@ public class ToDoMVC {
     }
 
     public static void cancelEdit(String oldTaskText, String newTaskText) {
-        startEdit(oldTaskText, newTaskText).sendKeys(Keys.ESCAPE);
+        startEdit(oldTaskText, newTaskText).pressESCAPE();
     }
 
     public static void delete(String taskText) {
@@ -83,6 +82,14 @@ public class ToDoMVC {
 
     public static void filterAll() {
         filters.find(text("All")).click();
+    }
+
+    public static void assertAppIsLoaded() {
+        waitFor(jsReturnedTrue(
+                "return " +
+                        "$._data($('#new-todo').get(0), 'events').hasOwnProperty('keyup')&& " +
+                        "$._data($('#toggle-all').get(0), 'events').hasOwnProperty('change') && " +
+                        "$._data($('#clear-completed').get(0), 'events').hasOwnProperty('click')"));
     }
 
 
@@ -116,11 +123,7 @@ public class ToDoMVC {
         String jsCommand = "localStorage.setItem(\"todos-troopjs\", '[" + StringUtils.join(tasks, ",") + "]')";
         System.out.println(jsCommand);
         executeJavaScript(jsCommand);
-        waitFor(jsReturnedTrue(
-                "return " +
-                        "$._data($('#new-todo').get(0), 'events').hasOwnProperty('keyup')&& " +
-                        "$._data($('#toggle-all').get(0), 'events').hasOwnProperty('change') && " +
-                        "$._data($('#clear-completed').get(0), 'events').hasOwnProperty('click')"));
+        assertAppIsLoaded();
         refresh();
     }
 

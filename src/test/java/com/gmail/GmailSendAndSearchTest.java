@@ -4,8 +4,9 @@ package com.gmail;
 import com.gmail.pages.Gmail;
 import com.gmail.pages.Mails;
 import com.gmail.pages.Menu;
-import com.gmail.testconfigs.BaseTest;
 import com.gmail.testdata.TestData;
+import com.testconfigs.BaseTest;
+import core.Configuration;
 import core.Helpers;
 import org.junit.Test;
 
@@ -13,6 +14,8 @@ public class GmailSendAndSearchTest extends BaseTest {
 
     @Test
     public void gmailSendAndSearch() {
+
+        Configuration.timeout = 10000;
 
         Gmail.visit();
         Gmail.login(TestData.mail, TestData.password);

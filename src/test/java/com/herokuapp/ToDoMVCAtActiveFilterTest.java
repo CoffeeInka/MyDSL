@@ -1,6 +1,6 @@
 package com.herokuapp;
 
-import com.herokuapp.testconfigs.BaseTest;
+import com.testconfigs.BaseTest;
 import org.junit.Test;
 
 import static com.herokuapp.pages.ToDoMVC.TaskStatus.ACTIVE;

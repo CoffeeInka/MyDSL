@@ -97,6 +97,18 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     @Override
+    public LazyElement pressESCAPE() {
+        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
+            @Override
+            public WebElement execute(WebElement element) {
+                element.sendKeys(Keys.ESCAPE);
+                return element;
+            }
+        });
+        return this;
+    }
+
+    @Override
     public LazyElement doubleClick() {
         new WithWaitFor(this, visible()).run(new Command<WebElement>() {
             @Override

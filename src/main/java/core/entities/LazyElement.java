@@ -31,5 +31,6 @@ public interface LazyElement extends LazyEntity<WebElement>, WebElement {
 
     LazyElement doubleClick();
 
+    LazyElement pressESCAPE();
 }
 

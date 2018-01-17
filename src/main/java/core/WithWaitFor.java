@@ -20,10 +20,10 @@ public class WithWaitFor {
 
     public <V> V run(Command<V> command) {
         try {
-            return command.execute(lazyElement);
+            return command.execute(lazyElement.getWrappedEntity());
         } catch (WebDriverException e) {
             waitFor(lazyElement).until(condition);
-            return command.execute(lazyElement);
+            return command.execute(lazyElement.getWrappedEntity());
         }
     }
 }
