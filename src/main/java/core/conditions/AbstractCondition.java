@@ -1,35 +1,28 @@
 package core.conditions;
 
 
-import org.openqa.selenium.By;
+import core.exceptions.WebDriverAssertionException;
+import core.entities.LazyEntity;
 
-public abstract class AbstractCondition<T> implements Condition<T> {
+public abstract class AbstractCondition<T> implements Condition<T>, DescribesResult {
 
-    public By locator;
+    public LazyEntity lazyEntity;
 
-    public T apply(By locator) {
-        this.locator = locator;
-        T entity = getWrappedEntity();
+    public T apply(LazyEntity<T> lazyEntity) {
+        this.lazyEntity = lazyEntity;
+        T entity = lazyEntity.getWrappedEntity();
         if (check(entity)) {
             return entity;
         }
-        return null;
+        throw new WebDriverAssertionException(toString());
     }
-
-    public abstract T getWrappedEntity();
 
     public abstract boolean check(T entity);
 
     public String toString() {
         return this.getClass().getSimpleName() +
-                "\nfor " + identity() + " found by locator: " + locator +
+                "\nfor " + lazyEntity.identity() + lazyEntity +
                 "\nexpected result is " + expected() + "\n" +
                 "actual result is " + actual();
     }
-
-    public abstract String identity();
-
-    public abstract String expected();
-
-    public abstract String actual();
 }

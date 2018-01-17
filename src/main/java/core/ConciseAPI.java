@@ -1,20 +1,22 @@
 package core;
 
 
-import core.conditions.Condition;
+import core.entities.LazyCollection;
+import core.entities.collection.LazyWebDriverCollection;
+import core.entities.LazyElement;
+import core.entities.element.LazyWebDriverElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
 import static core.Configuration.pollingInterval;
 import static core.Configuration.timeout;
-import static core.conditions.ElementConditions.visible;
-import static core.WaitFor.waitFor;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlToBe;
 
 public class ConciseAPI {
@@ -33,19 +35,20 @@ public class ConciseAPI {
         getDriver().get(url);
     }
 
-    public static WebElement $(By locator) {
-        return assertThat(locator, visible());
+    public static By byText(String text) {
+        return By.xpath(String.format("//*[text()='%s']", text));
     }
 
-
-    public static WebElement setValue(WebElement element, String text) {
-        element.clear();
-        element.sendKeys(text);
-        return element;
+    public static LazyElement $(By locator) {
+        return new LazyWebDriverElement(locator);
     }
 
-    public static <V> V assertThat(By locator, Condition<V> condition) {
-        return waitFor(locator).until(condition);
+    public static LazyElement $(String cssSelector) {
+        return new LazyWebDriverElement(By.cssSelector(cssSelector));
+    }
+
+    public static LazyCollection $$(By locator) {
+        return new LazyWebDriverCollection(locator);
     }
 
     //ONLY for conditions without element, lists or locators
@@ -63,6 +66,18 @@ public class ConciseAPI {
 
     public static void assertUrl(String url) {
         assertThat(urlToBe(url));
+    }
+
+    public static void refresh() {
+        getDriver().navigate().refresh();
+    }
+
+    public static void executeJavaScript(String jsCommand) {
+        ((JavascriptExecutor) getDriver()).executeScript(jsCommand);
+    }
+
+    public static <V> V waitFor(ExpectedCondition<V> condition) {
+        return new WebDriverWait(getDriver(), Configuration.timeout / 1000).until(condition);
     }
 
 }

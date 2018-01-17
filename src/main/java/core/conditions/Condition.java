@@ -1,9 +1,10 @@
 package core.conditions;
 
 
-import org.openqa.selenium.By;
+import core.entities.LazyEntity;
 
-public interface Condition<T> {
+public interface Condition<T> extends Matcher<T> {
 
-    T apply(By locator);
+    T apply(LazyEntity<T> lazyEntity);
+
 }

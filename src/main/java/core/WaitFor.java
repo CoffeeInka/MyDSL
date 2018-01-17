@@ -2,59 +2,45 @@ package core;
 
 
 import core.conditions.Condition;
-import org.openqa.selenium.By;
+import core.entities.LazyEntity;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 
-public class WaitFor {
+public class WaitFor<T> {
 
-    private By locator;
+    private LazyEntity<T> lazyEntity;
 
-    WaitFor(By locator) {
-        this.locator = locator;
+    WaitFor(LazyEntity<T> lazyEntity) {
+        this.lazyEntity = lazyEntity;
     }
 
-    public static WaitFor waitFor(By locator) {
-        return new WaitFor(locator);
+    public static <V> WaitFor<V> waitFor(LazyEntity<V> lazyEntity) {
+        return new WaitFor(lazyEntity);
     }
 
-    public <V> V until(Condition<V> condition) {
+    public T until(Condition<T> condition) {
         return until(condition, Configuration.timeout, Configuration.pollingInterval);
     }
 
-    public <V> V until(Condition<V> condition, long timeOutInMillis, long pollingIntervalInMillis) {
-        long end = System.currentTimeMillis() + timeOutInMillis;
-        Throwable lastException;
-        while (true) {
+    public T until(Condition<T> condition, long timeoutMs, long pollingIntervalInMillis) {
+        final long startTime = System.currentTimeMillis();
+        Throwable lastError;
+        do {
             try {
-                V value = condition.apply(locator);
-                if (value != null) {
-                    return value;
-                }
-                // Clear the last exception; if another retry or timeout exception would
-                // be caused by a false or null value, the last exception is not the
-                // cause of the timeout.
-                lastException = null;
-            } catch (Throwable e) {
-                lastException = e;
-//                lastException = propagateIfNotIgnored(e);
+                return condition.apply(lazyEntity);
+            } catch (WebDriverException e) {
+                lastError = e;
             }
-            // Check the timeout after evaluating the function to ensure conditions
-            // with a zero timeout can succeed.
-            if (System.currentTimeMillis() > end) {
-                String timeoutMessage = String.format(
-                        "Expected condition failed: %s (tried for %d second(s) with %s interval in millis)",
-                        "waiting for " + condition,
-                        timeOutInMillis / 1000, pollingIntervalInMillis);
-                throw new TimeoutException(timeoutMessage, lastException);
-            }
-            sleep();
-        }
+            sleep(pollingIntervalInMillis);
+        } while (System.currentTimeMillis() - startTime < timeoutMs);
+
+        throw new TimeoutException("\nfailed while waiting " + timeoutMs / 1000 + " seconds" +
+                "\nto assert " + condition, lastError);
     }
 
-    private <V> void sleep() {
+    private void sleep(long timeOutInMillis) {
         try {
-            Thread.sleep(Configuration.pollingInterval);
+            Thread.sleep(timeOutInMillis);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new WebDriverException(e);

@@ -1,20 +1,21 @@
 package com.google.pages;
 
+import core.entities.LazyCollection;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 
-import static core.ConciseAPI.*;
+import static core.ConciseAPI.$;
+import static core.ConciseAPI.$$;
 
 public class Google {
 
-    public static By byResults = By.cssSelector(".srg>.g");
+    public static LazyCollection results = $$(By.cssSelector(".srg>.g"));
 
     public static void search(String query) {
-        setValue($(By.name("q")), query + Keys.ENTER);
+        $(By.name("q")).setValue(query).pressEnter();
     }
 
     public static void followLink(int index) {
-        getDriver().findElements(byResults).get(index).findElement(By.cssSelector(".r>a")).click();
+        results.get(index).$(".r>a").click();
     }
 
 }

@@ -1,13 +1,13 @@
 package core.conditions.element;
 
 
-import core.conditions.ElementCondition;
+import core.conditions.AbstractCondition;
 import org.openqa.selenium.WebElement;
 
-public class Text extends ElementCondition {
+public class Text extends AbstractCondition<WebElement> {
 
-    private String expectedText;
-    private String actualText;
+    protected String expectedText;
+    protected String actualText;
 
     public Text(String expectedText) {
         this.expectedText = expectedText;
