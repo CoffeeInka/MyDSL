@@ -38,7 +38,7 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     public LazyElement $(String innerSelector) {
-        return new LazyElementInnerElement(this, By.cssSelector(innerSelector));
+        return this.$(By.cssSelector(innerSelector));
     }
 
     public LazyCollection findAll(By innerLocator) {
@@ -46,7 +46,7 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     public LazyCollection findAll(String innerCssSelector) {
-        return new LazyElementInnerCollection(this, By.cssSelector(innerCssSelector));
+        return this.findAll(By.cssSelector(innerCssSelector));
     }
 
     public LazyElement should(Condition<WebElement> condition) {
@@ -86,25 +86,13 @@ public abstract class AbstractLazyElement implements LazyElement {
 
     @Override
     public LazyElement pressEnter() {
-        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
-            @Override
-            public WebElement execute(WebElement element) {
-                element.sendKeys(Keys.ENTER);
-                return element;
-            }
-        });
+        this.sendKeys(Keys.ENTER);
         return this;
     }
 
     @Override
     public LazyElement pressESCAPE() {
-        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
-            @Override
-            public WebElement execute(WebElement element) {
-                element.sendKeys(Keys.ESCAPE);
-                return element;
-            }
-        });
+        this.sendKeys(Keys.ESCAPE);
         return this;
     }
 
@@ -215,7 +203,7 @@ public abstract class AbstractLazyElement implements LazyElement {
                 return element;
             }
         });
-        return true;
+        return this.isSelected();
     }
 
     @Override
@@ -227,7 +215,7 @@ public abstract class AbstractLazyElement implements LazyElement {
                 return element;
             }
         });
-        return true;
+        return this.isEnabled();
     }
 
     @Override
@@ -239,7 +227,7 @@ public abstract class AbstractLazyElement implements LazyElement {
                 return element;
             }
         });
-        return true;
+        return this.isDisplayed();
     }
 
     @Override

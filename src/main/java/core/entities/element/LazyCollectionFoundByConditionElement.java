@@ -14,8 +14,8 @@ public class LazyCollectionFoundByConditionElement extends AbstractLazyElement {
     private Condition<WebElement> condition;
 
 
-    public LazyCollectionFoundByConditionElement(LazyCollection collection, Condition<WebElement> condition) {
-        this.parentCollection = collection;
+    public LazyCollectionFoundByConditionElement(LazyCollection parentCollection, Condition<WebElement> condition) {
+        this.parentCollection = parentCollection;
         this.condition = condition;
     }
 

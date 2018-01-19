@@ -13,11 +13,11 @@ public class CollectionConditions {
         return new Size(number);
     }
 
-    public static Condition<List<WebElement>> texts(String... expectedTexts) {
-        return new TextsOf(expectedTexts);
+    public static Condition<List<WebElement>> texts(String... texts) {
+        return new TextsOf(texts);
     }
 
-    public static Condition<List<WebElement>> exactTexts(String... expectedTexts) {
-        return new ExactTexts(expectedTexts);
+    public static Condition<List<WebElement>> exactTexts(String... texts) {
+        return new ExactTexts(texts);
     }
 }

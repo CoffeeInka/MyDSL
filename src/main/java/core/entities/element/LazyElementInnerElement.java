@@ -5,15 +5,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class LazyElementInnerElement extends AbstractLazyElement {
-
     private LazyElement parentElement;
-
     private By innerLocator;
 
     public LazyElementInnerElement(LazyElement parentElement, By innerLocator) {
-
         this.parentElement = parentElement;
-
         this.innerLocator = innerLocator;
 
     }

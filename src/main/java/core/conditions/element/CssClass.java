@@ -16,7 +16,6 @@ public class CssClass extends AbstractCondition<WebElement> {
 
     }
 
-
     @Override
     public boolean check(WebElement entity) {
         actualCssClassNames = entity.getAttribute("class");
