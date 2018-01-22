@@ -7,6 +7,7 @@ import core.entities.LazyElement;
 import core.entities.element.LazyCollectionFoundByConditionElement;
 import core.entities.element.LazyWrappedWebElement;
 import org.openqa.selenium.WebElement;
+import core.entities.element.LazyCollectionNthElement;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -48,7 +49,7 @@ public abstract class AbstractLazyCollection implements LazyCollection {
 
     @Override
     public LazyElement get(int index) {
-        return this.get(index);
+        return new LazyCollectionNthElement(this, index);
     }
 
     @Override
