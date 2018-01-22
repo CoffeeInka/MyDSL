@@ -12,23 +12,8 @@ public class ExactTexts extends TextsOf {
     }
 
     @Override
-    public boolean check(List<WebElement> elements) {
-        if (elements.size() == 0) {
-            throw new IllegalArgumentException("Array of expected texts is empty.");
-        }
-        actualTexts = new ArrayList<>();
-        for (WebElement element : elements) {
-            actualTexts.add(element.getText());
-        }
-        if (elements.size() != expectedTexts.length) {
-            return false;
-        }
-        for (int i = 0; i < expectedTexts.length; i++) {
-            if (!elements.get(i).getText().equals(expectedTexts[i])) {
-                return false;
-            }
-        }
-        return true;
+    public boolean checkElement(int index, List<WebElement> elements) {
+        return elements.get(index).getText().equals(expectedTexts[index]);
     }
 
 }
