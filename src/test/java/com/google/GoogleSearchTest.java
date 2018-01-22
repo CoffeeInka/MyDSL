@@ -16,7 +16,6 @@ import static core.conditions.ElementConditions.text;
 
 public class GoogleSearchTest extends BaseTest {
 
-
     @Test
     public void testSearchThenFollowLink() {
 
@@ -29,6 +28,5 @@ public class GoogleSearchTest extends BaseTest {
         $(By.cssSelector("#mainContent>h2")).shouldHave(text("What is Selenium?"));
         assertUrl("http://www.seleniumhq.org/");
     }
-
 }
 

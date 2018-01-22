@@ -51,21 +51,8 @@ public class ConciseAPI {
         return new LazyWebDriverCollection(locator);
     }
 
-    //ONLY for conditions without element, lists or locators
-    public static <V> V assertThat(ExpectedCondition<V> condition) {
-        return assertThat(condition, timeout, pollingInterval);
-    }
-
-    //ONLY for conditions without element, lists or locators
-    public static <V> V assertThat(ExpectedCondition<V> condition, long timeout, long polling) {
-        return new FluentWait<>(getDriver())
-                .withTimeout(timeout, TimeUnit.MILLISECONDS)
-                .pollingEvery(polling, TimeUnit.MILLISECONDS)
-                .ignoring(WebDriverException.class, IndexOutOfBoundsException.class).until(condition);
-    }
-
     public static void assertUrl(String url) {
-        assertThat(urlToBe(url));
+        waitFor(urlToBe(url));
     }
 
     public static void refresh() {
