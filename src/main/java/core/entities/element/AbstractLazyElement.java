@@ -2,7 +2,6 @@ package core.entities.element;
 
 
 import core.Command;
-import core.Configuration;
 import core.WithWaitFor;
 import core.exceptions.ElementNotFoundException;
 import core.conditions.Condition;
@@ -14,7 +13,7 @@ import org.openqa.selenium.*;
 import java.util.List;
 
 import static com.herokuapp.pages.ToDoMVC.actions;
-import static core.WaitFor.satisfied;
+import static core.WaitFor.waitFor;
 import static core.conditions.ElementConditions.present;
 import static core.conditions.ElementConditions.visible;
 
@@ -51,7 +50,7 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     public LazyElement should(Condition<WebElement> condition) {
-        satisfied(this, Configuration.timeout, condition);
+        waitFor(this).until(condition);
         return this;
     }
 

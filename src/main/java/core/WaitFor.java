@@ -9,7 +9,17 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.concurrent.TimeUnit;
 
-public class WaitFor {
+public class WaitFor<T> {
+
+    private LazyEntity<T> lazyEntity;
+
+    WaitFor(LazyEntity<T> lazyEntity) {
+        this.lazyEntity = lazyEntity;
+    }
+
+    public static <V> WaitFor<V> waitFor(LazyEntity<V> lazyEntity) {
+        return new WaitFor(lazyEntity);
+    }
 
     public static <V> V until(LazyEntity lazyEntity, long timeoutMs, Condition<V>... conditions) {
         if (conditions.length == 0) {

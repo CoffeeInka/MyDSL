@@ -4,7 +4,7 @@ import core.conditions.Condition;
 import core.entities.LazyElement;
 import org.openqa.selenium.WebDriverException;
 
-import static core.WaitFor.satisfied;
+import static core.WaitFor.waitFor;
 
 public class WithWaitFor {
 
@@ -22,7 +22,7 @@ public class WithWaitFor {
         try {
             return command.execute(lazyElement.getWrappedEntity());
         } catch (WebDriverException e) {
-            satisfied(lazyElement, Configuration.timeout, condition);
+            waitFor(lazyElement).until(condition);
             return command.execute(lazyElement.getWrappedEntity());
         }
     }
