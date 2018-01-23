@@ -5,46 +5,37 @@ import core.conditions.Condition;
 import core.entities.LazyEntity;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.support.ui.FluentWait;
 
-public class WaitFor<T> {
+import java.util.concurrent.TimeUnit;
 
-    private LazyEntity<T> lazyEntity;
+public class WaitFor {
 
-    WaitFor(LazyEntity<T> lazyEntity) {
-        this.lazyEntity = lazyEntity;
+    public static <V> V until(LazyEntity lazyEntity, long timeoutMs, Condition<V>... conditions) {
+        if (conditions.length == 0) {
+            throw new IllegalArgumentException("Conditions are not given");
+        }
+        V result = null;
+        for (Condition<V> condition : conditions) {
+            result = new FluentWait<LazyEntity>(lazyEntity)
+                    .withTimeout(timeoutMs, TimeUnit.MILLISECONDS)
+                    .pollingEvery(Configuration.pollingInterval, TimeUnit.MILLISECONDS)
+                    .ignoring(WebDriverException.class)
+                    .until(condition);
+        }
+        return result;
     }
 
-    public static <V> WaitFor<V> waitFor(LazyEntity<V> lazyEntity) {
-        return new WaitFor(lazyEntity);
+    public static <V> V until(LazyEntity lazyEntity, Condition<V>... conditions) {
+        return until(lazyEntity, Configuration.timeout, conditions);
     }
 
-    public T until(Condition<T> condition) {
-        return until(condition, Configuration.timeout, Configuration.pollingInterval);
-    }
-
-    public T until(Condition<T> condition, long timeoutMs, long pollingIntervalInMillis) {
-        final long startTime = System.currentTimeMillis();
-        Throwable lastError;
-        do {
-            try {
-                return condition.apply(lazyEntity);
-            } catch (WebDriverException e) {
-                lastError = e;
-            }
-            sleep(pollingIntervalInMillis);
-        } while (System.currentTimeMillis() - startTime < timeoutMs);
-
-        throw new TimeoutException("\nfailed while waiting " + timeoutMs / 1000 + " seconds" +
-                "\nto assert " + condition, lastError);
-    }
-
-    private void sleep(long timeOutInMillis) {
+    public static boolean satisfied(LazyEntity lazyEntity, long timeoutMs, Condition... conditions) {
         try {
-            Thread.sleep(timeOutInMillis);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new WebDriverException(e);
+            until(lazyEntity, conditions);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
         }
     }
-
 }

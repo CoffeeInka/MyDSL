@@ -1,6 +1,7 @@
 package core.entities.collection;
 
 
+import core.Configuration;
 import core.conditions.Condition;
 import core.entities.LazyCollection;
 import core.entities.LazyElement;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static core.WaitFor.waitFor;
+import static core.WaitFor.satisfied;
 
 public abstract class AbstractLazyCollection implements LazyCollection {
 
@@ -24,7 +25,7 @@ public abstract class AbstractLazyCollection implements LazyCollection {
 
     @Override
     public LazyCollection should(Condition<List<WebElement>> condition) {
-        waitFor(this).until(condition);
+        satisfied(this, Configuration.timeout, condition);
         return this;
     }
 
