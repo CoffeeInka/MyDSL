@@ -92,7 +92,6 @@ public class ToDoMVC {
                         "$._data($('#clear-completed').get(0), 'events').hasOwnProperty('click')"));
     }
 
-
     public static void givenAtActive(Task... tasks) {
         given(tasks);
         filterActive();
@@ -184,6 +183,4 @@ public class ToDoMVC {
         Actions actions = new Actions(getDriver());
         return actions;
     }
-
-
 }

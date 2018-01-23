@@ -20,5 +20,4 @@ public class LazyWrappedWebElement extends AbstractLazyElement {
     public String toString() {
         return "Wrapped element " + element;
     }
-
 }

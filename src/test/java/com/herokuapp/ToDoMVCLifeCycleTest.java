@@ -37,8 +37,5 @@ public class ToDoMVCLifeCycleTest extends BaseTest {
 
         filterAll();
         assertTasks("1");
-
     }
-
-
 }

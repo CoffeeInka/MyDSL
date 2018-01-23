@@ -7,7 +7,6 @@ import static com.herokuapp.pages.ToDoMVC.TaskStatus.ACTIVE;
 import static com.herokuapp.pages.ToDoMVC.TaskStatus.COMPLETED;
 import static com.herokuapp.pages.ToDoMVC.*;
 
-
 public class ToDoMVCAtActiveFilterTest extends BaseTest {
 
     @Test
