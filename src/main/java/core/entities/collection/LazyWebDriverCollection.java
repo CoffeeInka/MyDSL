@@ -23,6 +23,6 @@ public class LazyWebDriverCollection extends AbstractLazyCollection {
 
     @Override
     public String toString() {
-        return "Found by locator " + locator.toString();
+        return locator.toString();
     }
 }

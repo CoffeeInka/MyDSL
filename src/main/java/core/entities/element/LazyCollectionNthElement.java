@@ -25,6 +25,6 @@ public class LazyCollectionNthElement extends AbstractLazyElement {
 
     @Override
     public String toString() {
-        return " Wrapped nth element " + collection.toString() + "[" + index + "]";
+        return collection.toString() + "[" + index + "]";
     }
 }

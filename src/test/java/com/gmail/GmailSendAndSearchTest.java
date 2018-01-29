@@ -12,10 +12,12 @@ import org.junit.Test;
 
 public class GmailSendAndSearchTest extends BaseTest {
 
+    {
+        Configuration.timeout = 25000;
+    }
+
     @Test
     public void gmailSendAndSearch() {
-
-        Configuration.timeout = 10000;
 
         Gmail.visit();
         Gmail.login(TestData.mail, TestData.password);
@@ -33,6 +35,4 @@ public class GmailSendAndSearchTest extends BaseTest {
         Mails.searchInInboxBy(subject);
         Mails.assertMails(subject);
     }
-
-
 }

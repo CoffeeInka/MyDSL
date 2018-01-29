@@ -1,9 +1,5 @@
 package core.conditions.collection;
 
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
-
 public class ExactTexts extends TextsOf {
 
     public ExactTexts(String... expectedTexts) {
@@ -11,7 +7,7 @@ public class ExactTexts extends TextsOf {
     }
 
     @Override
-    public boolean checkElement(int index, List<WebElement> elements) {
-        return elements.get(index).getText().equals(expectedTexts[index]);
+    public boolean checkElement(int index) {
+        return actualTexts.get(index).equals(expectedTexts[index]);
     }
 }

@@ -3,8 +3,8 @@ package core.conditions;
 
 import core.entities.LazyEntity;
 
-public interface Condition<T> extends Matcher<T> {
+import java.util.function.Function;
 
-    T apply(LazyEntity<T> lazyEntity);
+public interface Condition<T> extends Function<LazyEntity<T>, T>, Matcher<T> {
 
 }

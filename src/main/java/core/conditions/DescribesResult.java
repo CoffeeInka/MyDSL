@@ -1,7 +1,7 @@
 package core.conditions;
 
 public interface DescribesResult {
-    String expected();
 
+    String expected();
     String actual();
 }

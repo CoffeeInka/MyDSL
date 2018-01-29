@@ -21,28 +21,28 @@ public class WaitFor<T> {
         return new WaitFor(lazyEntity);
     }
 
-    public static <V> V until(LazyEntity lazyEntity, long timeoutMs, Condition<V>... conditions) {
+    public T until(long timeoutMs, long pollingInterval, Condition<T>... conditions) {
         if (conditions.length == 0) {
             throw new IllegalArgumentException("Conditions are not given");
         }
-        V result = null;
-        for (Condition<V> condition : conditions) {
-            result = new FluentWait<LazyEntity>(lazyEntity)
+        T result = null;
+        for (Condition<T> condition : conditions) {
+            result = new FluentWait<LazyEntity<T>>(lazyEntity)
                     .withTimeout(timeoutMs, TimeUnit.MILLISECONDS)
-                    .pollingEvery(Configuration.pollingInterval, TimeUnit.MILLISECONDS)
+                    .pollingEvery(pollingInterval, TimeUnit.MILLISECONDS)
                     .ignoring(WebDriverException.class)
                     .until(condition);
         }
         return result;
     }
 
-    public static <V> V until(LazyEntity lazyEntity, Condition<V>... conditions) {
-        return until(lazyEntity, Configuration.timeout, conditions);
+    public T until(Condition<T>... conditions) {
+        return until(Configuration.timeout, Configuration.pollingInterval, conditions);
     }
 
-    public static boolean satisfied(LazyEntity lazyEntity, long timeoutMs, Condition... conditions) {
+    public boolean satisfied(long timeoutMs, Condition... conditions) {
         try {
-            until(lazyEntity, conditions);
+            until(conditions);
             return true;
         } catch (TimeoutException e) {
             return false;
