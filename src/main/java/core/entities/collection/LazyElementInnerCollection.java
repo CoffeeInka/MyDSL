@@ -9,13 +9,10 @@ import java.util.List;
 public class LazyElementInnerCollection extends AbstractLazyCollection {
 
     private LazyElement element;
-
     private By innerLocator;
 
     public LazyElementInnerCollection(LazyElement element, By innerLocator) {
-
         this.element = element;
-
         this.innerLocator = innerLocator;
     }
 

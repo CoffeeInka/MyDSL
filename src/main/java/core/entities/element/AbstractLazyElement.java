@@ -196,38 +196,29 @@ public abstract class AbstractLazyElement implements LazyElement {
 
     @Override
     public boolean isSelected() {
-        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
-            @Override
-            public WebElement execute(WebElement element) {
-                element.isSelected();
-                return element;
+        return new WithWaitFor(this, visible()).run(new Command<Boolean>() {
+            public Boolean execute(WebElement element) {
+                return element.isSelected();
             }
         });
-        return this.isSelected();
     }
 
     @Override
     public boolean isEnabled() {
-        new WithWaitFor(this, visible()).run(new Command<WebElement>() {
-            @Override
-            public WebElement execute(WebElement element) {
-                element.isEnabled();
-                return element;
+        return new WithWaitFor(this, visible()).run(new Command<Boolean>() {
+            public Boolean execute(WebElement element) {
+                return element.isEnabled();
             }
         });
-        return this.isEnabled();
     }
 
     @Override
     public boolean isDisplayed() {
-        new WithWaitFor(this, present()).run(new Command<WebElement>() {
-            @Override
-            public WebElement execute(WebElement element) {
-                element.isDisplayed();
-                return element;
+        return new WithWaitFor(this, present()).run(new Command<Boolean>() {
+            public Boolean execute(WebElement element) {
+                return element.isDisplayed();
             }
         });
-        return this.isDisplayed();
     }
 
     @Override
@@ -262,12 +253,22 @@ public abstract class AbstractLazyElement implements LazyElement {
 
     @Override
     public String getCssValue(String s) {
-        return getWrappedEntity().getCssValue(s);
+        return new WithWaitFor(this, present()).run(new Command<String>() {
+            @Override
+            public String execute(WebElement element) {
+                return getWrappedEntity().getCssValue(s);
+            }
+        });
     }
 
     @Override
     public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {
-        return getWrappedEntity().getScreenshotAs(outputType);
+        return new WithWaitFor(this, visible()).run(new Command<X>() {
+            @Override
+            public X execute(WebElement element) {
+                return getWrappedEntity().getScreenshotAs(outputType);
+            }
+        });
     }
 
     @Override

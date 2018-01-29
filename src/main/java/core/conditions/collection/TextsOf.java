@@ -26,15 +26,15 @@ public class TextsOf extends AbstractCondition<List<WebElement>> {
             return false;
         }
         for (int i = 0; i < expectedTexts.length; i++) {
-            if (!checkElement(i, elements)) {
+            if (!checkElement(i)) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean checkElement(int index, List<WebElement> elements) {
-        return elements.get(index).getText().contains(expectedTexts[index]);
+    public boolean checkElement(int index) {
+        return actualTexts.get(index).contains(expectedTexts[index]);
     }
 
     @Override
@@ -44,10 +44,6 @@ public class TextsOf extends AbstractCondition<List<WebElement>> {
 
     @Override
     public String actual() {
-        String actual = "";
-        for (String s : actualTexts) {
-            actual += s + "\t";
-        }
-        return actual;
+        return Arrays.toString(actualTexts.toArray());
     }
 }
