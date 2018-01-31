@@ -91,7 +91,7 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     @Override
-    public LazyElement pressESCAPE() {
+    public LazyElement pressEscape() {
         this.sendKeys(Keys.ESCAPE);
         return this;
     }
