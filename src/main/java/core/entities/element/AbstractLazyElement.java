@@ -3,12 +3,11 @@ package core.entities.element;
 
 import core.Command;
 import core.WithWaitFor;
-import core.exceptions.ElementNotFoundException;
 import core.conditions.Condition;
 import core.entities.LazyCollection;
 import core.entities.LazyElement;
 import core.entities.collection.LazyElementInnerCollection;
-import org.apache.xpath.operations.Bool;
+import core.exceptions.ElementNotFoundException;
 import org.openqa.selenium.*;
 
 import java.util.List;
@@ -92,7 +91,7 @@ public abstract class AbstractLazyElement implements LazyElement {
     }
 
     @Override
-    public LazyElement pressESCAPE() {
+    public LazyElement pressEscape() {
         this.sendKeys(Keys.ESCAPE);
         return this;
     }

@@ -56,7 +56,7 @@ public class ToDoMVC {
     }
 
     public static void cancelEdit(String oldTaskText, String newTaskText) {
-        startEdit(oldTaskText, newTaskText).pressESCAPE();
+        startEdit(oldTaskText, newTaskText).pressEscape();
     }
 
     public static void delete(String taskText) {
